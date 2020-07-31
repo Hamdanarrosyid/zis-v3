@@ -18,10 +18,11 @@ class LaporanController extends Controller
         $perPage = 10;
         $page = $request->get('page') ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = JenisZis::all()->mapToGroups(function ($jenisZis) {
+            $jenis_id = $jenisZis->id;
             $pemasukan = Pemasukan::sortable()->where('jenis_id', '=', $jenisZis->id)->sum('nominal');
             $pengeluaran = Pengeluaran::where('jenis_id', '=', $jenisZis->id)->sum('nominal');
             $saldo = $pemasukan - $pengeluaran;
-            return [$jenisZis->jenis => compact(['pemasukan', 'pengeluaran', 'saldo'])];
+            return [$jenisZis->jenis => compact(['pemasukan', 'pengeluaran', 'saldo','jenis_id'])];
         })->map(function ($data) {
             return $data->first();
         });
@@ -32,19 +33,41 @@ class LaporanController extends Controller
         $totalk = $items->sum('pengeluaran');
         $totals = $items->sum('saldo');
         $no = 0;
-        return response()->view('laporan.index', ['pemasukan' => $pemasukan,'totalm'=>$totalm,'totalk'=>$totalk,'totals'=>$totals,'no'=>$no]);
+        return response()->view('laporan.index', ['pemasukan' => $pemasukan, 'totalm' => $totalm, 'totalk' => $totalk, 'totals' => $totals, 'no' => $no]);
     }
+
     public function chart()
     {
         $jeniszis = JenisZis::all();
-        $data = $jeniszis->mapToGroups(function ($jenis){
-            $pemasukan = Pemasukan::where('jenis_id','=',$jenis->id)->sum('nominal');
-            $pengeluaran = Pengeluaran::where('jenis_id','=',$jenis->id)->sum('nominal');
+        $data = $jeniszis->mapToGroups(function ($jenis) {
+            $pemasukan = Pemasukan::where('jenis_id', '=', $jenis->id)->sum('nominal');
+            $pengeluaran = Pengeluaran::where('jenis_id', '=', $jenis->id)->sum('nominal');
             $saldo = $pemasukan - $pengeluaran;
             return [$jenis->jenis => $saldo];
-        })->map(function ($item){
+        })->map(function ($item) {
             return $item->first();
         });
         return response()->json($data);
+    }
+
+    public function masuk_show(Pemasukan $jenis)
+    {
+        $pemasukan = Pemasukan::all()->where('jenis_id','=',$jenis->id);
+        $min_month = $pemasukan->min('tanggal');
+        $max_month = $pemasukan->max('tanggal');
+//        dd($min_month->format('Y-m'));
+
+        return view('laporan.show-masuk',compact('pemasukan','jenis','min_month','max_month'));
+    }
+    public function keluar_show(Pengeluaran $jenis)
+    {
+        $pengeluaran = Pengeluaran::all()->where('jenis_id','=',$jenis->id);
+        return view('laporan.show-keluar',compact('pengeluaran','jenis'));
+    }
+    public function filter(Request $request)
+    {
+        $pemasukan = Pemasukan::all()->where('jenis_id','=',$jenis->id);
+//        $hasil = $tanggal->where('tanggal','=',$request);
+        dd($tanggal);
     }
 }

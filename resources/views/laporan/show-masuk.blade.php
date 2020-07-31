@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right ">
                                 <li><a href="{{route('home')}}">Dashboard</a></li>
-                                <li class="active"> Pemasukan Zis</li>
+                                <li class="active"> Detail Zis</li>
                             </ol>
                         </div>
                     </div>
@@ -26,46 +26,43 @@
     <div class="content">
         <div class="animated fadeIn">
             <div class="row">
-
+                <div class="col-md-12 mb-0">
+                    <div class="card py-2">
+                        <nav class="nav nav-pills d-flex justify-content-center">
+                            <a class="text-sm-center btn btn-outline-success mx-lg-4" href="{{route('laporan.masuk.show',['jenis'=>$jenis->id])}}">Pemasukan</a>
+                            <a class="text-sm-center btn btn-outline-primary nav-link mx-lg-4" href="{{route('laporan.keluar.show',['jenis'=>$jenis->id])}}">Pengeluaran</a>
+                        </nav>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <strong class="card-title">
                                 <i class="fa fa-money"></i>
-                                Pemasukan Zis
+                                Detail Pemasukan Zis
                             </strong>
-                            <a href="{{route('pemasukan.create')}}" class="font-weight-bold">
-                                <i class="fa fa-plus"></i>
-                                Tambah Data
-                            </a>
                         </div>
 
                         <div class="card-body">
-                            <form class="form-inline mb-3" action="{{route('pemasukan.filter')}}" method="GET">
+                            <form class="form-inline mb-3" action="{{route('laporan.filter')}}" method="POST">
+                                @csrf
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter Data</label>
-                                <select name="filter"
-                                        class="custom-select my-1 mr-sm-2 @error('filter') is-invalid @enderror"
-                                        id="inlineFormCustomSelectPref">
-                                        <option value="{{null}}">Select...</option>
-                                    @foreach($jeniszis as $data)
-                                        @if($data->id == $filter)
-                                            <option selected value="{{$data->id}}">{{$data->jenis}}</option>
-                                        @else
-                                            <option value="{{$data->id}}">{{$data->jenis}}</option>
-                                        @endif
-                                    @endforeach
-                                    @error('filter')
-                                    <span class="invalid-feedback" role="alert">
+                                <input type="month" name="filter"
+                                       class="my-1 mr-sm-2 form-control @error('filter') is-invalid @enderror"
+                                       min="{{$min_month->format('Y-m')}}" max="{{$max_month->format('Y-m')}}"
+                                       id="inlineForm">
+                                @error('filter')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </select>
+                                @enderror
+                                </input>
                                 <button type="submit" class="btn btn-outline-success">filter</button>
                                 <a href="{{route('pemasukan.index')}}" class="mx-3 btn btn-outline-primary ">All</a>
-                                @foreach($param as $data)
-                                    <a href="{{route('pemasukan.pdf',['filter'=>$data])}}"
-                                       class="btn btn-outline-danger">Download PDF</a>
-                                @endforeach
+                                {{--                                @foreach($param as $data)--}}
+                                {{--                                    <a href="{{route('pemasukan.pdf',['filter'=>$data])}}"--}}
+                                {{--                                       class="btn btn-outline-danger">Download PDF</a>--}}
+                                {{--                                @endforeach--}}
                             </form>
                             <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                 <thead>
@@ -77,13 +74,14 @@
                                     <th>@sortablelink('note','Keterangan')</th>
                                     <th>@sortablelink('user_id','User')</th>
                                     <th>Bukti Pemasukan</th>
-                                    <th>Aksi</th>
+{{--                                    <th>Aksi</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {{--                                {{$no = 1}}--}}
                                 @foreach($pemasukan as $index => $data)
                                     <tr>
-                                        <td>{{$pemasukan->firstItem() + $index}}</td>
+                                        <td>{{$index}}</td>
                                         <td>{{$data->jeniszis->jenis}}</td>
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>
                                         <td>{{number_format($data->nominal)}}</td>
@@ -103,19 +101,19 @@
                                         @else
                                             <td>Tidak ada nota</td>
                                         @endif
-                                        <td>
-                                            <a href="{{route('pemasukan.edit',['pemasukan'=>$data->id])}}"><i
-                                                    class="fa ti-pencil text-info"></i> </a>
-                                            <a href="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"
-                                               onclick="event.preventDefault();document.getElementById('formdelete-{{$data->id}}').submit();"><i
-                                                    class="fa ti-trash ml-2 text-danger"></i></a>
-                                            <form id="formdelete-{{$data->id}}"
-                                                  action="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"
-                                                  method="POST" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                            </form>
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            <a href="{{route('pemasukan.edit',['pemasukan'=>$data->id])}}"><i--}}
+{{--                                                    class="fa ti-pencil text-info"></i> </a>--}}
+{{--                                            <a href="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"--}}
+{{--                                               onclick="event.preventDefault();document.getElementById('formdelete-{{$data->id}}').submit();"><i--}}
+{{--                                                    class="fa ti-trash ml-2 text-danger"></i></a>--}}
+{{--                                            <form id="formdelete-{{$data->id}}"--}}
+{{--                                                  action="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"--}}
+{{--                                                  method="POST" class="d-inline">--}}
+{{--                                                @method('delete')--}}
+{{--                                                @csrf--}}
+{{--                                            </form>--}}
+{{--                                        </td>--}}
 
                                     </tr>
                                 @endforeach
@@ -126,7 +124,7 @@
                                     {{session('status')}}
                                 </div>
                             @endif
-                            {{ $pemasukan->links() }}
+                            {{--                            {{ $pemasukan->links() }}--}}
                         </div>
                     </div>
                 </div>
@@ -160,5 +158,11 @@
             }
         }
     </style>
+    <script>
+        const link = document.querySelector('.content','nav','a')
+        link.addEventListener('click',()=>{
+            link.classList.add('active')
+        })
+    </script>
 @endsection
 

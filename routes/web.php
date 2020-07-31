@@ -47,5 +47,9 @@ Route::resource('pengeluaran-bentuk','PengeluaranBentukController')->middleware(
 
 Route::resource('pengeluaran','PengeluaranController')->middleware(['auth','notjamaah']);
 
+Route::get('laporan/pemasukan-detail/{jenis}','LaporanController@masuk_show')->name('laporan.masuk.show');
+Route::get('laporan/pengeluaran-detail/{jenis}','LaporanController@keluar_show')->name('laporan.keluar.show');
 Route::get('laporan/chart','LaporanController@chart')->name('laporan.chart');
 Route::get('laporan','LaporanController@index')->name('laporan.index');
+Route::post('laporan/filter','LaporanController@filter')->name('laporan.filter');
+

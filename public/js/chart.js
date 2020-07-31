@@ -24,7 +24,7 @@
             labels: jenis,
             datasets: [
                 {
-                    label: "Grafik Laporan ZIS",
+                    label: "Grafik",
                     data: saldo,
                     borderColor:[
                         'rgba(255, 99, 132, 1)',

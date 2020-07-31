@@ -4,6 +4,17 @@
         .custom-cursor{
             cursor: pointer;
         }
+        .custom-cursor:hover{
+            /*padding: 15px;*/
+            background-color: rgba(0, 0, 0, 0.09);
+            color: #7b7b7b;
+            position: relative;
+        }
+        .custom-cursor:active{
+            /*padding: 15px;*/
+            color: black;
+            transition:.2s ease color;
+        }
     </style>
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
@@ -48,7 +59,7 @@
                             </strong>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped table-hover table-bordered">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -60,9 +71,9 @@
                                 </thead>
                                 <tbody>
                                 @foreach($pemasukan as $nama_jenis_zis => $nominal)
-                                    <tr class="custom-cursor">
+                                    <tr>
                                         <td>{{$pemasukan->firstItem() + $no++}}</td>
-                                        <td>{{ $nama_jenis_zis }}</td>
+                                        <td title="Show" class="custom-cursor" onclick="window.location.href='{{route('laporan.masuk.show',['jenis'=>$nominal['jenis_id']])}}'">{{ $nama_jenis_zis }}</td>
                                         <td>Rp {{number_format($nominal['pemasukan'])}}</td>
                                         <td>Rp {{number_format($nominal['pengeluaran']) }}</td>
                                         <td>Rp {{number_format($nominal['saldo']) }}</td>
