@@ -83,9 +83,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($pengeluaran as $data)
+                                @foreach($pengeluaran as $key => $data)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$key + $pengeluaran->firstItem()}}</td>
                                         <td>{{$data->keperluan}}</td>
                                         <td>{{$data->jeniszis->jenis}}</td>
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>

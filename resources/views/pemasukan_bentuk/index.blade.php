@@ -77,9 +77,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($pemasukan as $data)
+                                @foreach($pemasukan as $key => $data)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$key + $pemasukan->firstItem()}}</td>
                                         <td>{{$data->bentukzis->bentuk}}</td>
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>
                                         <td>{{$data->note}}</td>

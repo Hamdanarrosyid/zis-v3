@@ -33,7 +33,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet"/>
-
 </head>
 
 <body>
@@ -54,31 +53,46 @@
                                    aria-expanded="false"> <i class="menu-icon fa ti-id-badge"></i>Pengguna</a>
                             </li>
                         @endif
-{{--                        @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')--}}
-{{--                            <li class="menu-item">--}}
-{{--                                <a href="{{route('jeniszis.index')}}" class="nav-item" aria-haspopup="true"--}}
-{{--                                   aria-expanded="false"> <i class="menu-icon fa ti-agenda"></i>Jenis ZIS</a>--}}
-{{--                            </li>--}}
-{{--                        @endif--}}
+                        {{--                        @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')--}}
+                        {{--                            <li class="menu-item">--}}
+                        {{--                                <a href="{{route('jeniszis.index')}}" class="nav-item" aria-haspopup="true"--}}
+                        {{--                                   aria-expanded="false"> <i class="menu-icon fa ti-agenda"></i>Jenis ZIS</a>--}}
+                        {{--                            </li>--}}
+                        {{--                        @endif--}}
                         @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false"> <i class="menu-icon fa ti-files"></i>Entri Data ZIS</a>
+                                   aria-expanded="false"> <i class="menu-icon fa ti-files"></i>Entri Jenis ZIS</a>
                                 <ul class="sub-menu children dropdown-menu">
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')
-                                                            <li><i class="fa ti-agenda"></i><a href="{{route('jeniszis.index')}}">Jenis ZIS</a></li>
-                                                            <li><i class="fa ti-time"></i><a href="{{route('bentukzis.index')}}">Barang ZIS</a></li>
+                                        <li><i class="fa ti-agenda"></i><a href="{{route('jeniszis.index')}}">Jenis
+                                                ZIS</a></li>
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
-                                    <li><i class="fa fa-money"></i><a href="{{route('pemasukan.index')}}">Pemasukan
-                                            ZIS</a></li>
-                                    <li><i class="fa ti-shopping-cart"></i><a href="{{route('pengeluaran.index')}}">Pengeluaran
-                                            ZIS</a></li>
-                                            <li><i class="fa fa-money"></i><a href="{{route('pemasukan-bentuk.index')}}">Pemasukan
-                                        Barang ZIS</a></li>
-                                         <li><i class="fa fa-money"></i><a href="{{route('pengeluaran-bentuk.index')}}">Pengeluaran
-                                        Barang ZIS</a></li>
+                                        <li><i class="fa fa-money"></i><a href="{{route('pemasukan.index')}}">Pemasukan
+                                                Jenis</a></li>
+                                        <li><i class="fa ti-shopping-cart"></i><a href="{{route('pengeluaran.index')}}">Pengeluaran
+                                                Jenis</a></li>
+                                </ul>
+                            </li>
+                        @endif
+                        @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false"> <i class="menu-icon fa fa-calendar-o"></i>Entri Barang ZIS</a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    @endif
+                                    @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')
+                                        <li><i class="fa ti-package"></i><a href="{{route('bentukzis.index')}}">Barang
+                                                ZIS</a></li>
+                                    @endif
+                                    @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
+                                        <li><i class="fa fa-money"></i><a href="{{route('pemasukan-bentuk.index')}}">Pemasukan
+                                                Barang</a></li>
+                                        <li><i class="fa fa-shopping-cart"></i><a
+                                                href="{{route('pengeluaran-bentuk.index')}}">Pengeluaran
+                                                Barang</a></li>
                                 </ul>
                             </li>
                         @endif

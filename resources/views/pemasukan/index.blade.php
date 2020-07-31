@@ -81,9 +81,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($pemasukan as $data)
+{{--                                {{$no = 1}}--}}
+                                @foreach($pemasukan as $index => $data)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$pemasukan->firstItem() + $index}}</td>
                                         <td>{{$data->jeniszis->jenis}}</td>
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>
                                         <td>{{number_format($data->nominal)}}</td>
