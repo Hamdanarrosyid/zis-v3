@@ -9,6 +9,7 @@ use App\Pengeluaran;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use function MongoDB\BSON\toJSON;
 
 class LaporanController extends Controller
 {
@@ -30,6 +31,20 @@ class LaporanController extends Controller
         $totalm = $items->sum('pemasukan');
         $totalk = $items->sum('pengeluaran');
         $totals = $items->sum('saldo');
-        return response()->view('laporan.index', ['pemasukan' => $pemasukan,'totalm'=>$totalm,'totalk'=>$totalk,'totals'=>$totals]);
+        $no = 0;
+        return response()->view('laporan.index', ['pemasukan' => $pemasukan,'totalm'=>$totalm,'totalk'=>$totalk,'totals'=>$totals,'no'=>$no]);
+    }
+    public function chart()
+    {
+        $jeniszis = JenisZis::all();
+        $data = $jeniszis->mapToGroups(function ($jenis){
+            $pemasukan = Pemasukan::where('jenis_id','=',$jenis->id)->sum('nominal');
+            $pengeluaran = Pengeluaran::where('jenis_id','=',$jenis->id)->sum('nominal');
+            $saldo = $pemasukan - $pengeluaran;
+            return [$jenis->jenis => $saldo];
+        })->map(function ($item){
+            return $item->first();
+        });
+        return response()->json($data);
     }
 }

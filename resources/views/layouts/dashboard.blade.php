@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard ZiS Al-Iman</title>
+    <title>Dashboard ZIS Al-Iman</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -84,8 +84,9 @@
                                 <ul class="sub-menu children dropdown-menu">
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')
-                                        <li><i class="fa ti-package"></i><a href="{{route('bentukzis.index')}}">Barang
-                                                ZIS</a></li>
+                                        <li>
+                                            <i class="ti ti-package"></i><a href="{{route('bentukzis.index')}}">Barang ZIS</a>
+                                        </li>
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
                                         <li><i class="fa fa-money"></i><a href="{{route('pemasukan-bentuk.index')}}">Pemasukan
@@ -205,21 +206,10 @@
 <!--  Chart js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
-<!--Chartist Chart-->
-<script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
-<script src="{{asset('js/init/weather-init.js')}}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
 <script src="{{asset('js/init/fullcalendar-init.js')}}"></script>
+<script src="{{asset('js/chart.js')}}"></script>
 <!-- jQuery -->
-<script src="//code.jquery.com/jquery.js"></script>
 </body>
 </html>

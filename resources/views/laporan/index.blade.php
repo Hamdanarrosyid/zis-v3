@@ -1,5 +1,10 @@
 @extends('layouts.dashboard')
 @section('content')
+    <style>
+        .custom-cursor{
+            cursor: pointer;
+        }
+    </style>
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
             <div class="row m-0">
@@ -26,17 +31,24 @@
     <div class="content " style="margin-bottom: 200px">
         <div class="animated fadeIn">
             <div class="row">
-
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3">Grafik Laporan Zis</h4>
+                            <canvas id="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <strong class="card-title">
-                                <i class="fa fa-envelope"></i>
-                                Laporan ZIS
+                                <i class="ti ti-envelope"></i>
+                                Table Laporan ZIS
                             </strong>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -48,8 +60,8 @@
                                 </thead>
                                 <tbody>
                                 @foreach($pemasukan as $nama_jenis_zis => $nominal)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
+                                    <tr class="custom-cursor">
+                                        <td>{{$pemasukan->firstItem() + $no++}}</td>
                                         <td>{{ $nama_jenis_zis }}</td>
                                         <td>Rp {{number_format($nominal['pemasukan'])}}</td>
                                         <td>Rp {{number_format($nominal['pengeluaran']) }}</td>
@@ -73,5 +85,7 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+{{--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>--}}
+{{--    <script src="assets/js/init/chartjs-init.js"></script>--}}
 @endsection
 
