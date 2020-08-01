@@ -3,11 +3,12 @@
     <style>
         .custom-cursor{
             cursor: pointer;
+            color: rgb(52, 58, 153);
         }
         .custom-cursor:hover{
             /*padding: 15px;*/
             background-color: rgba(0, 0, 0, 0.09);
-            color: #7b7b7b;
+            color: black;
             position: relative;
         }
         .custom-cursor:active{
@@ -96,7 +97,5 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
-{{--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>--}}
-{{--    <script src="assets/js/init/chartjs-init.js"></script>--}}
 @endsection
 

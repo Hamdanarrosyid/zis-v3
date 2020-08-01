@@ -22,5 +22,9 @@ class Pemasukan extends Model
     public function jeniszis() {
         return $this->belongsTo('App\JenisZis', 'jenis_id');
     }
+    public function getMonthYear()
+    {
+        return $this->attributes['tanggal'] = '2001-07-09';
+    }
 }
 

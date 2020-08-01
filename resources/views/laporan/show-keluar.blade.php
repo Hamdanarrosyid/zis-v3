@@ -15,6 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right ">
                                 <li><a href="{{route('home')}}">Dashboard</a></li>
+                                <li><a href="{{route('laporan.index')}}">Laporan</a></li>
                                 <li class="active"> Detail Zis</li>
                             </ol>
                         </div>
@@ -29,8 +30,10 @@
                 <div class="col-md-12 mb-0">
                     <div class="card py-2">
                         <nav class="nav nav-pills d-flex justify-content-center">
-                            <a class="text-sm-center btn btn-outline-success mx-lg-4 active" href="{{route('laporan.masuk.show',['jenis'=>$jenis->id])}}">Pemasukan</a>
-                            <a class="text-sm-center btn btn-outline-primary nav-link mx-lg-4" href="{{route('laporan.keluar.show',['jenis'=>$jenis->id])}}">Pengeluaran</a>
+                            <a class="text-sm-center btn btn-outline-success mx-lg-4"
+                               href="{{route('laporan.masuk.show',['jenis'=>$jenis->id])}}">Pemasukan</a>
+                            <a class="text-sm-center btn btn-outline-primary active mx-lg-4"
+                               href="{{route('laporan.keluar.show',['jenis'=>$jenis->id])}}">Pengeluaran</a>
                         </nav>
                     </div>
                 </div>
@@ -44,11 +47,17 @@
                         </div>
 
                         <div class="card-body">
-                            <form class="form-inline mb-3" action="{{route('pemasukan.filter')}}" method="GET">
+                            <form class="form-inline mb-3"
+                                  action="{{route('laporan.keluar.filter',['jenis'=>$jenis->id])}}"
+                                  method="GET">
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter Data</label>
                                 <input type="month" name="filter"
+                                       required
                                        class="my-1 mr-sm-2 form-control @error('filter') is-invalid @enderror"
-                                       {{--                                       max="{{}}"--}}
+                                       @if($min_month != null && $max_month != null)
+                                       min="{{$min_month->format('Y-m')}}" max="{{$max_month->format('Y-m')}}"
+                                       @endif
+                                       value="{{$filter_value}}"
                                        id="inlineForm">
                                 @error('filter')
                                 <span class="invalid-feedback" role="alert">
@@ -57,7 +66,8 @@
                                 @enderror
                                 </input>
                                 <button type="submit" class="btn btn-outline-success">filter</button>
-                                <a href="{{route('pemasukan.index')}}" class="mx-3 btn btn-outline-primary ">All</a>
+                                <a href="{{route('laporan.masuk.show',['jenis'=>$jenis->id])}}"
+                                   class="mx-3 btn btn-outline-primary ">All</a>
                                 {{--                                @foreach($param as $data)--}}
                                 {{--                                    <a href="{{route('pemasukan.pdf',['filter'=>$data])}}"--}}
                                 {{--                                       class="btn btn-outline-danger">Download PDF</a>--}}
@@ -77,10 +87,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{--                                {{$no = 1}}--}}
-                                @foreach($pengeluaran as $index => $data)
+                                @foreach($hasil_data as $index => $data)
                                     <tr>
-                                        <td>{{$index}}</td>
+                                        <td>{{$index + $hasil_data->firstItem()}}</td>
                                         <td>{{$data->jeniszis->jenis}}</td>
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>
                                         <td>{{number_format($data->nominal)}}</td>
@@ -100,20 +109,6 @@
                                         @else
                                             <td>Tidak ada nota</td>
                                         @endif
-                                        {{--                                        <td>--}}
-                                        {{--                                            <a href="{{route('pemasukan.edit',['pemasukan'=>$data->id])}}"><i--}}
-                                        {{--                                                    class="fa ti-pencil text-info"></i> </a>--}}
-                                        {{--                                            <a href="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"--}}
-                                        {{--                                               onclick="event.preventDefault();document.getElementById('formdelete-{{$data->id}}').submit();"><i--}}
-                                        {{--                                                    class="fa ti-trash ml-2 text-danger"></i></a>--}}
-                                        {{--                                            <form id="formdelete-{{$data->id}}"--}}
-                                        {{--                                                  action="{{route('pemasukan.destroy',['pemasukan'=>$data->id])}}"--}}
-                                        {{--                                                  method="POST" class="d-inline">--}}
-                                        {{--                                                @method('delete')--}}
-                                        {{--                                                @csrf--}}
-                                        {{--                                            </form>--}}
-                                        {{--                                        </td>--}}
-
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -123,7 +118,7 @@
                                     {{session('status')}}
                                 </div>
                             @endif
-                            {{--                            {{ $pemasukan->links() }}--}}
+                            {{ $hasil_data->links() }}
                         </div>
                     </div>
                 </div>
@@ -132,7 +127,7 @@
     </div><!-- .content -->
 
     <!-- Modal View Nota -->
-    @foreach($pengeluaran     as $data)
+    @foreach($hasil_data as $data)
         <div class="modal fade modal-xl" id="view-nota-{{$data->id}}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">

@@ -51,5 +51,6 @@ Route::get('laporan/pemasukan-detail/{jenis}','LaporanController@masuk_show')->n
 Route::get('laporan/pengeluaran-detail/{jenis}','LaporanController@keluar_show')->name('laporan.keluar.show');
 Route::get('laporan/chart','LaporanController@chart')->name('laporan.chart');
 Route::get('laporan','LaporanController@index')->name('laporan.index');
-Route::post('laporan/filter','LaporanController@filter')->name('laporan.filter');
+Route::get('laporan/pemasukan-detail/{jenis}/filter','LaporanController@masuk_filter')->name('laporan.masuk.filter');
+Route::get('laporan/pengeluaran-detail/{jenis}/filter','LaporanController@keluar_filter')->name('laporan.keluar.filter');
 
