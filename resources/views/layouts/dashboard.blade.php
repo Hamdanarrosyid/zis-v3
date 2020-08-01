@@ -114,7 +114,7 @@
     <header id="header" class="header ">
         <div class="top-left">
             <div class="navbar-header  ">
-                <a class="@guest mt-2 @endguest" style="font-size: 22px;font-weight: 600" href="./"><span
+                <a class="@guest mt-2 @endguest" style="font-size: 22px;font-weight: 600" href="/"><span
                         class="text-dark">ZIS</span> <span class="text-success"> Al-Iman</span></a>
                 <a class="navbar-brand hidden " href="./"></a>
                 @auth()<a id="menuToggle" class="menutoggle ml-lg-5"><i class="fa fa-bars"></i></a>@endauth
