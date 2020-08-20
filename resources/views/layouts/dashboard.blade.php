@@ -85,7 +85,8 @@
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Ketua' || auth()->user()->role == 'Bendahara' || auth()->user()->role == 'Sekertaris')
                                         <li>
-                                            <i class="ti ti-package"></i><a href="{{route('bentukzis.index')}}">Barang ZIS</a>
+                                            <i class="ti ti-package"></i><a href="{{route('bentukzis.index')}}">Barang
+                                                ZIS</a>
                                         </li>
                                     @endif
                                     @if(auth()->user()->role == 'Admin' || auth()->user()->role != 'Jamaah' || auth()->user()->role == 'PanitiaRamadhan')
@@ -102,6 +103,20 @@
                         <a href="{{route('laporan.index')}}" aria-haspopup="true"
                            aria-expanded="false"> <i class="menu-icon fa ti-envelope"></i>Rekap/Laporan</a>
                     </li>
+                    @auth()
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false"> <i class="menu-icon fa fa-group"></i>Data Jamaah</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="{{route('jeniszis.index')}}">Dasawisma</a></li>
+                                <li><a href="{{route('pemasukan.index')}}">RT</a></li>
+                                <li><a href="{{route('pengeluaran.index')}}">Warga</a></li>
+                                <li><a href="{{route('pengeluaran.index')}}">Jenis Kelamin</a></li>
+                                <li><a href="{{route('pengeluaran.index')}}">Gol Darah</a></li>
+                                <li><a href="{{route('pengeluaran.index')}}">Jamaah</a></li>
+                            </ul>
+                        </li>
+                    @endauth
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

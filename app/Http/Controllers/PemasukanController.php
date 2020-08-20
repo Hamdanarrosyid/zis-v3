@@ -43,7 +43,6 @@ class PemasukanController extends Controller
     public function pdf(Request $request)
     {
         $filter = $request->filter;
-
         if ($filter == true){
             $pemasukan = Pemasukan::all()->where('jenis_id','=',$filter);
         }
