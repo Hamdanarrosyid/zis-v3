@@ -16,8 +16,8 @@ class CreateTableDasaWisma extends Migration
         Schema::create('dasa_wisma', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_dasa_wisma');
-            $table->string('jumlah_krt');
-            $table->string('jumlah_kk');
+            $table->bigInteger('jumlah_krt');
+            $table->bigInteger('jumlah_kk');
             $table->timestamps();
         });
     }

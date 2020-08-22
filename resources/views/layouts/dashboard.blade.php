@@ -108,8 +108,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false"> <i class="menu-icon fa fa-group"></i>Data Jamaah</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><a href="{{route('jeniszis.index')}}">Dasawisma</a></li>
-                                <li><a href="{{route('pemasukan.index')}}">RT</a></li>
+                                <li><a href="{{route('dasa_wisma.index')}}">Dasawisma</a></li>
+                                <li><a href="{{route('rt.index')}}">RT</a></li>
                                 <li><a href="{{route('pengeluaran.index')}}">Warga</a></li>
                                 <li><a href="{{route('pengeluaran.index')}}">Jenis Kelamin</a></li>
                                 <li><a href="{{route('pengeluaran.index')}}">Gol Darah</a></li>
@@ -211,13 +211,17 @@
     </footer>
     <!-- /.site-footer -->
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="{{asset('js/main.js')}}"></script>
-
 <!--  Chart js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 <script src="{{asset('js/chart.js')}}"></script>
@@ -225,6 +229,25 @@
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
 <script src="{{asset('js/init/fullcalendar-init.js')}}"></script>
-<!-- jQuery -->
+
+@if(session('error-create'))
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).ready(function () {
+                $('#createmodal').modal('show')
+            })
+        })
+    </script>
+@endif
+@if(session('error-update'))
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).ready(function () {
+                $('#editmodal-{{session('id')}}').modal('show')
+            })
+        })
+    </script>
+@endif
+
 </body>
 </html>

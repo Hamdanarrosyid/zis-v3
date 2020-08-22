@@ -54,3 +54,9 @@ Route::get('laporan','LaporanController@index')->name('laporan.index');
 Route::get('laporan/pemasukan-detail/{jenis}/filter','LaporanController@masuk_filter')->name('laporan.masuk.filter');
 Route::get('laporan/pengeluaran-detail/{jenis}/filter','LaporanController@keluar_filter')->name('laporan.keluar.filter');
 
+Route::resource('dasa_wisma','DasaWismaController')->middleware('auth');
+Route::resource('RT','RTController')->middleware('auth');
+Route::resource('warga','WargaController')->middleware('auth');
+Route::resource('jenis_kelamin','JenisKelaminController')->middleware('auth');
+Route::resource('golongan_darah','GolonganDarahController')->middleware('auth');
+Route::resource('jamaah','JamaahController')->middleware('auth');
