@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class DasaWismaController extends Controller
 {
-    protected $validationFail = false;
 
     /**
      * Display a listing of the resource.
@@ -40,12 +39,11 @@ class DasaWismaController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'nama_dasa_wisma' => ['required', 'string'],
+            'nama_dasa_wisma' => ['required', 'string','unique:dasa_wisma'],
             'jumlah_krt' => ['required', 'min:0', 'numeric'],
             'jumlah_kk' => ['required', 'min:0', 'numeric']
         ]);
         if ($validator->fails()) {
-            $this->validationFail = true;
             return redirect()->route('dasa_wisma.index')->withErrors($validator)->with('error-create', true);
         } else {
             DasaWisma::create($request->all());
@@ -90,7 +88,6 @@ class DasaWismaController extends Controller
             'jumlah_kk' => ['required', 'min:0', 'numeric']
         ]);
         if ($validator->fails()) {
-            $this->validationFail = true;
             return redirect()->route('dasa_wisma.index')->withErrors($validator)->with(['error-update'=>true,'id'=>$dasaWisma->id]);
         } else {
             $dasaWisma::where('id', $dasaWisma->id)
@@ -111,7 +108,7 @@ class DasaWismaController extends Controller
      */
     public function destroy(DasaWisma $dasaWisma)
     {
-        $dasaWisma::where('id', $dasaWisma->id);
+        DasaWisma::where('id', $dasaWisma->id);
         $dasaWisma->delete();
         return redirect()->route('dasa_wisma.index')->with('status', 'Berhasil menghapus data');
     }

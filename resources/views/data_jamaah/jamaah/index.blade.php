@@ -40,7 +40,7 @@
                 </div>
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
-                        <thead>
+{{--                        <thead>--}}
                         <tr>
                             <th class="serial">#</th>
                             <th>Nama Dasa Wisma</th>
@@ -48,8 +48,8 @@
                             <th>Jumlah KK</th>
                             <th>Aksi</th>
                         </tr>
-                        </thead>
-                        <tbody>
+{{--                        </thead>--}}
+{{--                        <tbody>--}}
                         @foreach($dasaWisma as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
@@ -60,16 +60,14 @@
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
                                     </a>
-                                    <a href="#" data-toggle="modal" data-target="#modal-delete"
+                                    <a href="#" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"
                                        class="badge badge-pending">
                                         Hapus
                                     </a>
                                 </td>
                             </tr>
-                            <form id="deleteform" method="POST" action="{{route('dasa_wisma.destroy',['dasa_wisma'=>$data->id])}}">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+{{--                        </tbody>--}}
+
                         @endforeach
                     </table>
                 </div> <!-- /.table-stats -->
@@ -206,7 +204,8 @@
         </div>
     @endforeach
 
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach($dasaWisma as $data)
+    <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="d-flex justify-content-center">
@@ -222,35 +221,18 @@
                         <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                     </div>
                 </div>
+                <form id="deleteform" method="POST" action="{{route('dasa_wisma.destroy',['dasa_wisma'=>$data->id])}}">
+                    @csrf
+                    @method('DELETE')
                 <div class="pb-4 d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary mr-2" onclick="event.preventDefault();document.getElementById('deleteform').submit();">Ya Hapus</button>
+                    <button type="submit" class="btn btn-primary mr-2">Ya Hapus</button>
                     <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Batal</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+    @endforeach
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    @if(session('error-create'))
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#createmodal').modal('show')
-            })
-        </script>
-    @endif
-    @if(session('error-update'))
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#editmodal-{{session('id')}}').modal('show')
-            })
-        </script>
-    @endif
 @endsection
+

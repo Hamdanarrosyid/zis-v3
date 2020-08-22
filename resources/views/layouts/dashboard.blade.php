@@ -109,11 +109,11 @@
                                aria-expanded="false"> <i class="menu-icon fa fa-group"></i>Data Jamaah</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><a href="{{route('dasa_wisma.index')}}">Dasawisma</a></li>
-                                <li><a href="{{route('rt.index')}}">RT</a></li>
-                                <li><a href="{{route('pengeluaran.index')}}">Warga</a></li>
-                                <li><a href="{{route('pengeluaran.index')}}">Jenis Kelamin</a></li>
-                                <li><a href="{{route('pengeluaran.index')}}">Gol Darah</a></li>
-                                <li><a href="{{route('pengeluaran.index')}}">Jamaah</a></li>
+                                <li><a href="{{route('RT.index')}}">RT</a></li>
+                                <li><a href="{{route('warga.index')}}">Warga</a></li>
+                                <li><a href="{{route('jenis_kelamin.index')}}">Jenis Kelamin</a></li>
+                                <li><a href="{{route('golongan_darah.index')}}">Gol Darah</a></li>
+                                <li><a href="{{route('jamaah.index')}}">Jamaah</a></li>
                             </ul>
                         </li>
                     @endauth

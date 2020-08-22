@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="{{route('home')}}">Dashboard</a></li>
-                                <li class="active">Dasa Wisma</li>
+                                <li class="active">Jenis Kelamin</li>
                             </ol>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <strong class="card-title m-0">
                         <i class="fa fa-users"></i>
-                        Table Dasa Wisma
+                        Table Jenis Kelamin
                     </strong>
                     <a href="#" data-toggle="modal" data-target="#createmodal" class="badge badge-primary ">
                         <i class="fa fa-plus"></i>
@@ -40,36 +40,30 @@
                 </div>
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
-                        <thead>
+{{--                        <thead>--}}
                         <tr>
                             <th class="serial">#</th>
-                            <th>Nama Dasa Wisma</th>
-                            <th>Jumlah KRT</th>
-                            <th>Jumlah KK</th>
+                            <th>Jenis Kelamin</th>
                             <th>Aksi</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($dasaWisma as $data)
+{{--                        </thead>--}}
+{{--                        <tbody>--}}
+                        @foreach($jenisKelamin as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->nama_dasa_wisma}}</td>
-                                <td> {{$data->jumlah_krt}}</td>
-                                <td> {{$data->jumlah_kk}}</td>
+                                <td> {{$data->jenis_kelamin}}</td>
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
                                     </a>
-                                    <a href="#" data-toggle="modal" data-target="#modal-delete"
+                                    <a href="#" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"
                                        class="badge badge-pending">
                                         Hapus
                                     </a>
                                 </td>
                             </tr>
-                            <form id="deleteform" method="POST" action="{{route('dasa_wisma.destroy',['dasa_wisma'=>$data->id])}}">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+{{--                        </tbody>--}}
+
                         @endforeach
                     </table>
                 </div> <!-- /.table-stats -->
@@ -82,14 +76,14 @@
                     </button>
                 </div>
             @endif
-            {{ $dasaWisma->links() }}
+            {{ $jenisKelamin->links() }}
         </div>
     </div>
     {{--    create-modal--}}
     <div class="modal fade" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{route('dasa_wisma.store')}}" method="post">
+            <form action="{{route('jenis_kelamin.store')}}" method="post">
                 @csrf
                 @method('POST')
                 <div class="modal-content">
@@ -101,39 +95,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="nama_dasa_wisma" class="col-sm-4 col-form-label">Nama Dasa Wisma</label>
+                            <label for="jenis_kelamin" class="col-sm-4 col-form-label">Jenis Kelamin</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nama_dasa_wisma"
-                                       class="form-control @error('nama_dasa_wisma') is-invalid @enderror"
-                                       id="nama_dasa_wisma"
-                                       placeholder="nama dasa wisma">
-                                @error('nama_dasa_wisma')
+                                <input type="text" name="jenis_kelamin"
+                                       class="form-control @error('jenis_kelamin') is-invalid @enderror"
+                                       id="jenis_kelamin"
+                                       placeholder="Jenis Kelamin">
+                                @error('jenis_kelamin')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                        </div>
-                        <div class="form-group row">
-                            <label for="jumlah_krt" class="col-sm-4 col-form-label">Jumlah KRT</label>
-                            <div class="col-sm-8">
-                                <input type="number" min="0" value="0" name="jumlah_krt"
-                                       class="form-control @error('jumlah_krt') is-invalid @enderror"
-                                       id="jumlah_krt">
-                                @error('jumlah_krt')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="jumlah_kk" class="col-sm-4 col-form-label">Jumlah KK</label>
-                            <div class="col-sm-8">
-                                <input type="number" min="0" value="0" name="jumlah_kk"
-                                       class="form-control @error('jumlah_kk') is-invalid @enderror"
-                                       id="jumlah_kk">
-                                @error('jumlah_kk')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -145,13 +117,13 @@
     </div>
 
     {{--Edit Modal--}}
-    @foreach($dasaWisma as $data)
+    @foreach($jenisKelamin as $data)
         <div class="modal fade" id="editmodal-{{$data->id}}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form action="{{route('dasa_wisma.update',['dasa_wisma'=>$data->id])}}" method="post">
+                    <form action="{{route('jenis_kelamin.update',['jenis_kelamin'=>$data->id])}}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="modal-header d-flex justify-content-between">
@@ -162,35 +134,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <label for="nama_dasa_wisma" class="col-sm-4 col-form-label">Nama Dasa Wisma</label>
+                                <label for="jenis_kelamin" class="col-sm-4 col-form-label">Jenis Kelamin</label>
                                 <div class="col-sm-8">
-                                    <input value="{{$data->nama_dasa_wisma}}" type="text" name="nama_dasa_wisma"
-                                           class="form-control @error('nama_dasa_wisma') is-invalid @enderror"
-                                           id="dasa_wisma"
-                                           placeholder="nama dasa wisma">
-                                    @error('nama_dasa_wisma')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="jumlah_krt" class="col-sm-4 col-form-label">Jumlah KRT</label>
-                                <div class="col-sm-8">
-                                    <input type="number" min="0" value="{{$data->jumlah_krt}}" name="jumlah_krt"
-                                           class="form-control @error('jumlah_krt') is-invalid @enderror"
-                                           id="jumlah_krt">
-                                    @error('jumlah_krt')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="jumlah_kk" class="col-sm-4 col-form-label">Jumlah KK</label>
-                                <div class="col-sm-8">
-                                    <input type="number" min="0" value="{{$data->jumlah_kk}}" name="jumlah_kk"
-                                           class="form-control @error('jumlah_kk') is-invalid @enderror"
-                                           id="jumlah_kk">
-                                    @error('jumlah_kk')
+                                    <input value="{{$data->jenis_kelamin}}" type="text" name="jenis_kelamin"
+                                           class="form-control @error('jenis_kelamin') is-invalid @enderror"
+                                           id="Jenis Kelamin"
+                                           placeholder="jenis_kelamin">
+                                    @error('jenis_kelamin')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -206,7 +156,8 @@
         </div>
     @endforeach
 
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach($jenisKelamin as $data)
+    <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="d-flex justify-content-center">
@@ -222,35 +173,18 @@
                         <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                     </div>
                 </div>
+                <form id="deleteform" method="POST" action="{{route('jenis_kelamin.destroy',['jenis_kelamin'=>$data->id])}}">
+                    @csrf
+                    @method('DELETE')
                 <div class="pb-4 d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary mr-2" onclick="event.preventDefault();document.getElementById('deleteform').submit();">Ya Hapus</button>
+                    <button type="submit" class="btn btn-primary mr-2">Ya Hapus</button>
                     <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Batal</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+    @endforeach
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    @if(session('error-create'))
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#createmodal').modal('show')
-            })
-        </script>
-    @endif
-    @if(session('error-update'))
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#editmodal-{{session('id')}}').modal('show')
-            })
-        </script>
-    @endif
 @endsection
+
