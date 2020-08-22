@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DasaWisma;
+use App\GolonganDarah;
 use App\Jamaah;
+use App\JenisKelamin;
+use App\RT;
+use App\Warga;
 use Illuminate\Http\Request;
 
 class JamaahController extends Controller
@@ -14,7 +19,9 @@ class JamaahController extends Controller
      */
     public function index()
     {
-        //
+        $jamaah = Jamaah::paginate(10);
+
+        return response()->view('data_jamaah.jamaah.index', compact('jamaah'));
     }
 
     /**
@@ -24,7 +31,13 @@ class JamaahController extends Controller
      */
     public function create()
     {
-        //
+        $jenisKelamin = JenisKelamin::all();
+        $golonganDarah = GolonganDarah::all();
+        $warga = Warga::all();
+        $dasaWisma = DasaWisma::all();
+        $rt = RT::all();
+
+        return response()->view('data_jamaah.jamaah.create', compact('jenisKelamin','golonganDarah','warga','dasaWisma','rt'));
     }
 
     /**
