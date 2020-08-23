@@ -8,7 +8,7 @@ class Jamaah extends Model
 {
     protected $table = 'jamaah';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama','jenis_kelamin_id','tempat_lahir','tanggal_lahir','dasawisma_id','RT_id','warga_id','golongan_darah_id','keterangan'];
+    protected $fillable = ['nama','jenis_kelamin_id','tempat_lahir','tanggal_lahir','dasa_wisma_id','rt_id','warga_id','golongan_darah_id','keterangan'];
 
     public function jenisKelamin()
     {
@@ -18,7 +18,7 @@ class Jamaah extends Model
     {
         return $this->belongsTo(DasaWisma::class);
     }
-    public function RT()
+    public function rt()
     {
         return $this->belongsTo(RT::class);
     }

@@ -55,10 +55,10 @@
                         @foreach($jamaah as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->nama_dasa_wisma}}</td>
+                                <td> {{$data->nama}}</td>
                                 <td> {{$data->jenisKelamin->jenis_kelamin}}</td>
                                 <td> {{$data->dasaWisma->nama_dasa_wisma}}</td>
-                                <td> {{$data->RT->nomor_rt}}</td>
+                                <td> {{$data->rt->nomor_rt}}</td>
                                 <td> {{$data->warga->status_warga}}</td>
                                 <td>
                                     <a href="{{route('jamaah.show',['jamaah'=>$data->id])}}" class="badge badge-complete ">Edit</a>

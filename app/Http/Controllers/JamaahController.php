@@ -9,6 +9,7 @@ use App\JenisKelamin;
 use App\RT;
 use App\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class JamaahController extends Controller
 {
@@ -40,15 +41,39 @@ class JamaahController extends Controller
         return response()->view('data_jamaah.jamaah.create', compact('jenisKelamin','golonganDarah','warga','dasaWisma','rt'));
     }
 
+    protected function validation($request)
+    {
+        $message = [
+            'jenis_kelamin_id:The jenis kelamin id field is required.'
+        ];
+        return validator::make($request->all(), [
+            'nama' => ['required', 'string'],
+            'jenis_kelamin_id' => ['required', 'string'],
+            'tempat_lahir' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date'],
+            'dasa_wisma_id' => ['required', 'integer'],
+            'rt_id' => ['required', 'integer'],
+            'warga_id' => ['required', 'integer'],
+            'golongan_darah_id' => ['required', 'integer'],
+            'keterangan' => ['required', 'string'],
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator->fails()) {
+            return redirect()->route('jamaah.create')->withErrors($validator)->withInput();
+        } else {
+//            dd($request->request);
+            Jamaah::create($request->all());
+            return redirect()->route('jamaah.index')->with('status', 'Berhasil menambahkan data');
+        }
     }
 
     /**
