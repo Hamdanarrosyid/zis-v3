@@ -61,7 +61,7 @@
                                 <td> {{$data->rt->nomor_rt}}</td>
                                 <td> {{$data->warga->status_warga}}</td>
                                 <td>
-                                    <a href="{{route('jamaah.show',['jamaah'=>$data->id])}}" class="badge badge-complete ">Edit</a>
+                                    <a href="{{route('jamaah.show',['jamaah'=>$data->id])}}" class="badge badge-complete ">Show & Edit</a>
                                     <a href="#" data-toggle="modal" data-target="#modal-delete-{{$data->id}}"
                                        class="badge badge-pending">
                                         Hapus

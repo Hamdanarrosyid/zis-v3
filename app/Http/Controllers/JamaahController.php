@@ -38,17 +38,24 @@ class JamaahController extends Controller
         $dasaWisma = DasaWisma::all();
         $rt = RT::all();
 
-        return response()->view('data_jamaah.jamaah.create', compact('jenisKelamin','golonganDarah','warga','dasaWisma','rt'));
+        return response()->view('data_jamaah.jamaah.create', compact('jenisKelamin', 'golonganDarah', 'warga', 'dasaWisma', 'rt'));
     }
 
     protected function validation($request)
     {
         $message = [
-            'jenis_kelamin_id:The jenis kelamin id field is required.'
+            'jenis_kelamin_id.required' => 'The jenis kelamin field is required.',
+            'jenis_kelamin_id.integer' => 'The jenis kelamin must be an integer.',
+            'dasa_wisma_id.required' => 'The dasa wisma field is required.',
+            'dasa_wisma_id.integer' => 'The dasa wisma must be an integer.',
+            'rt_id.required' => 'The RT field is required.',
+            'rt_id.integer' => 'The RT must be an integer.',
+            'golongan_darah.required' => 'The golongan darah field is required.',
+            'golongan_darah.integer' => 'The golongan darah must be an integer.',
         ];
         return validator::make($request->all(), [
             'nama' => ['required', 'string'],
-            'jenis_kelamin_id' => ['required', 'string'],
+            'jenis_kelamin_id' => ['required', 'integer'],
             'tempat_lahir' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date'],
             'dasa_wisma_id' => ['required', 'integer'],
@@ -56,12 +63,13 @@ class JamaahController extends Controller
             'warga_id' => ['required', 'integer'],
             'golongan_darah_id' => ['required', 'integer'],
             'keterangan' => ['required', 'string'],
-        ]);
+        ], $message);
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -70,7 +78,6 @@ class JamaahController extends Controller
         if ($validator->fails()) {
             return redirect()->route('jamaah.create')->withErrors($validator)->withInput();
         } else {
-//            dd($request->request);
             Jamaah::create($request->all());
             return redirect()->route('jamaah.index')->with('status', 'Berhasil menambahkan data');
         }
@@ -79,18 +86,24 @@ class JamaahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Jamaah  $jamaah
+     * @param \App\Jamaah $jamaah
      * @return \Illuminate\Http\Response
      */
     public function show(Jamaah $jamaah)
     {
-        //
+        $jenisKelamin = JenisKelamin::all();
+        $golonganDarah = GolonganDarah::all();
+        $warga = Warga::all();
+        $dasaWisma = DasaWisma::all();
+        $rt = RT::all();
+
+        return response()->view('data_jamaah.jamaah.show', compact('jamaah', 'jenisKelamin', 'golonganDarah', 'warga', 'dasaWisma', 'rt'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Jamaah  $jamaah
+     * @param \App\Jamaah $jamaah
      * @return \Illuminate\Http\Response
      */
     public function edit(Jamaah $jamaah)
@@ -101,19 +114,35 @@ class JamaahController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jamaah  $jamaah
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Jamaah $jamaah
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Jamaah $jamaah)
     {
-        //
+        $validator = $this->validation($request);
+        if ($validator->fails()) {
+            return redirect()->route('jamaah.show')->withErrors($validator);
+        } else {
+            Jamaah::where('id', $jamaah->id)->update([
+                'nama' => $request->nama,
+                'jenis_kelamin_id' => $request->jenis_kelamin_id,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'dasa_wisma_id' => $request->dasa_wisma_id,
+                'rt_id' => $request->rt_id,
+                'warga_id' => $request->warga_id,
+                'golongan_darah_id' => $request->golongan_darah_id,
+                'keterangan' => $request->keterangan,
+            ]);
+            return redirect()->route('jamaah.index')->with('status', 'Berhasil mengubah data');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Jamaah  $jamaah
+     * @param \App\Jamaah $jamaah
      * @return \Illuminate\Http\Response
      */
     public function destroy(Jamaah $jamaah)
