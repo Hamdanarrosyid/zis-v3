@@ -143,10 +143,12 @@ class JamaahController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Jamaah $jamaah
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Jamaah $jamaah)
     {
-        //
+        DasaWisma::where('id', $jamaah->id);
+        $jamaah->delete();
+        return redirect()->route('jamaah.index')->with('status', 'Berhasil menghapus data');
     }
 }

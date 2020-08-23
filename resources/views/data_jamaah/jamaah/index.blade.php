@@ -103,7 +103,7 @@
                         <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                     </div>
                 </div>
-                <form id="deleteform" method="POST" action="{{route('dasa_wisma.destroy',['dasa_wisma'=>$data->id])}}">
+                <form id="deleteform" method="POST" action="{{route('jamaah.destroy',['jamaah'=>$data->id])}}">
                     @csrf
                     @method('DELETE')
                 <div class="pb-4 d-flex justify-content-center">
