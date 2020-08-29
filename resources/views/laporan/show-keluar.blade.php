@@ -81,7 +81,6 @@
                                     <th>@sortablelink('tanggal')</th>
                                     <th>@sortablelink('nominal')</th>
                                     <th>@sortablelink('note','Keterangan')</th>
-                                    <th>@sortablelink('user_id','User')</th>
                                     <th>Bukti Pengeluaran</th>
                                     {{--                                    <th>Aksi</th>--}}
                                 </tr>
@@ -94,7 +93,6 @@
                                         <td>{{$data->tanggal->format('d-m-Y')}}</td>
                                         <td>{{number_format($data->nominal)}}</td>
                                         <td>{{$data->note}}</td>
-                                        <td>{{$data->user->name}}</td>
                                         @if($data->image == true)
                                             <td>
                                                 <a style="cursor: pointer" data-toggle="modal"
