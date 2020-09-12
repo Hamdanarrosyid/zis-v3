@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Iqro;
+use App\JenisKelamin;
+use App\Juz;
+use App\Nilai;
 use App\Santri;
+use App\Sekolah;
 use Illuminate\Http\Request;
 
 class SantriController extends Controller
@@ -26,7 +31,19 @@ class SantriController extends Controller
      */
     public function create()
     {
-        //
+        $jenisKelamin = JenisKelamin::all();
+        $sekolah = Sekolah::all();
+        $nilai = Nilai::all();
+
+        return response()->view('santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
+    }
+    public function pencapaian()
+    {
+        dd('pp');
+        $juz = Juz::all();
+        $iqro = Iqro::all();
+
+        return response()->json(compact('juz','iqro'));
     }
 
     /**
@@ -46,9 +63,12 @@ class SantriController extends Controller
      * @param  \App\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function show(Santri $santri)
+    public function show()
     {
-        //
+        $juz = Juz::all();
+        $iqro = Iqro::all();
+
+        return response()->json(compact('juz','iqro'));
     }
 
     /**

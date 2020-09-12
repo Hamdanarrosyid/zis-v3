@@ -122,7 +122,7 @@ class JamaahController extends Controller
     {
         $validator = $this->validation($request);
         if ($validator->fails()) {
-            return redirect()->route('jamaah.show')->withErrors($validator);
+            return redirect()->route('jamaah.show',['jamaah'=>$jamaah->id])->withErrors($validator);
         } else {
             Jamaah::where('id', $jamaah->id)->update([
                 'nama' => $request->nama,

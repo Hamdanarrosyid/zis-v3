@@ -125,7 +125,7 @@
                                 <li><a href="{{route('santri.index')}}">Santri</a></li>
                                 <li><a href="{{route('sekolah.index')}}">Sekolah</a></li>
 {{--                                <li><a href="{{route('warga.index')}}">Iqro</a></li>--}}
-                                <li><a href="{{route('jenis_kelamin.index')}}">Al-Quran</a></li>
+{{--                                <li><a href="{{route('santri.pencapaian')}}">Al-Quran</a></li>--}}
 {{--                                <li><a href="{{route('golongan_darah.index')}}">Juz</a></li>--}}
 {{--                                <li><a href="{{route('jamaah.index')}}">Nilai</a></li>--}}
                             </ul>
@@ -243,6 +243,7 @@
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
 <script src="{{asset('js/init/fullcalendar-init.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
 
 @if(session('error-create'))
     <script type="text/javascript">

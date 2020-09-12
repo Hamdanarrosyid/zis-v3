@@ -62,3 +62,4 @@ Route::resource('golongan_darah','GolonganDarahController')->middleware('auth');
 Route::resource('jamaah','JamaahController')->middleware('auth');
 Route::resource('sekolah','SekolahController')->middleware('auth');
 Route::resource('santri','SantriController')->middleware('auth');
+//Route::get('santri/pencapaian','SantriController@pencapian')->middleware('auth')->name('santri.pencapaian');

@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Dasa Wisma*</label>
+                                <label>Sekolah*</label>
                                 <select name="sekolah_id"
                                         class="form-control @error('sekolah_id') is-invalid @enderror">
                                     <option value="{{null}}">Select..</option>
@@ -81,9 +81,9 @@
                                         <option
                                             @if(old('sekolah_id') == $data->id)
                                             selected
-                                            value="{{$data->id}}">{{$data->nama_dasa_wisma}}
+                                            value="{{$data->id}}">{{$data->nama_sekolah}}
                                             @else
-                                                value="{{$data->id}}">{{$data->nama_dasa_wisma}}
+                                                value="{{$data->id}}">{{$data->nama_sekolah}}
                                             @endif
                                         </option>
                                     @endforeach
@@ -95,75 +95,64 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="rt_id">RT*</label>
-                                <select name="rt_id" class="form-control  @error('rt_id') is-invalid @enderror">
-                                    <option value="{{null}}">Select..</option>
-                                    @foreach($rt as $data)
-                                        <option
-                                            @if(old('rt_id') == $data->id)
-                                            selected
-                                            value="{{$data->id}}">{{$data->nomor_rt}}
-                                            @else
-                                                value="{{$data->id}}">{{$data->nomor_rt}}
-                                            @endif
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('rt_id')
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="tingkat_baca">Tingkat Baca*</label>
+                                        <select onchange="select()" id="tingkat_baca_selector" name="tingkat_baca" class="form-control  @error('tingkat_baca') is-invalid @enderror">
+                                            <option value="{{null}}">Select..</option>
+                                            <option value="iqro">Iqro</option>
+                                            <option value="al-quran">Al-Quran</option>
+                                            {{--                                    @foreach($rt as $data)--}}
+                                            {{--                                        <option--}}
+                                            {{--                                            @if(old('tingkat_baca') == $data->id)--}}
+                                            {{--                                            selected--}}
+                                            {{--                                            value="{{$data->id}}">{{$data->nomor_rt}}--}}
+                                            {{--                                            @else--}}
+                                            {{--                                                value="{{$data->id}}">{{$data->nomor_rt}}--}}
+                                            {{--                                            @endif--}}
+                                            {{--                                        </option>--}}
+                                            {{--                                    @endforeach--}}
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="tingkat_baca">Pencapaian Baca*</label>
+                                        <select id="pencapaian_baca" name="tingkat_baca" class="form-control  @error('tingkat_baca') is-invalid @enderror">
+                                            <option class="bg-danger">pilih tingkat bacaan terlebih dahulu</option>
+                                            {{--                                    @foreach($rt as $data)--}}
+                                            {{--                                        <option--}}
+                                            {{--                                            @if(old('tingkat_baca') == $data->id)--}}
+                                            {{--                                            selected--}}
+                                            {{--                                            value="{{$data->id}}">{{$data->nomor_rt}}--}}
+                                            {{--                                            @else--}}
+                                            {{--                                                value="{{$data->id}}">{{$data->nomor_rt}}--}}
+                                            {{--                                            @endif--}}
+                                            {{--                                        </option>--}}
+                                            {{--                                    @endforeach--}}
+                                        </select>
+                                    </div>
+                                </div>
+                                @error('tingkat_baca')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="warga_id">Warga*</label>
-                                <select name="warga_id" class="form-control  @error('warga_id') is-invalid @enderror">
+                                <label for="nilai_id">Nilai*</label>
+                                <select name="nilai_id" class="form-control  @error('nilai_id') is-invalid @enderror">
                                     <option value="{{null}}">Select..</option>
-                                    @foreach($warga as $data)
+                                    @foreach($nilai as $data)
                                         <option
-                                            @if(old('warga_id') == $data->id)
+                                            @if(old('nilai_id') == $data->id)
                                             selected
-                                            value="{{$data->id}}">{{$data->status_warga}}
+                                            value="{{$data->id}}">{{$data->nilai}}
                                             @else
-                                                value="{{$data->id}}">{{$data->status_warga}}
+                                                value="{{$data->id}}">{{$data->nilai}}
                                             @endif
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('warga_id')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="golongan_darah_id">Gol Darah*</label>
-                                <select name="golongan_darah_id"
-                                        class="form-control  @error('golongan_darah_id') is-invalid @enderror">
-                                    <option value="{{null}}">Select..</option>
-                                    @foreach($golonganDarah as $data)
-                                        <option
-                                            @if(old('golongan_darah_id') == $data->id)
-                                            selected
-                                            value="{{$data->id}}">{{$data->golongan_darah}}
-                                            @else
-                                                value="{{$data->id}}">{{$data->golongan_darah}}
-                                            @endif
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('golongan_darah_id')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="keterangan">Keterangan*</label>
-                                <textarea name="keterangan" id="keterangan" required
-                                          class="form-control  @error('keterangan') is-invalid @enderror"
-                                          placeholder="Masukan keterangan">{{old('keterangan')}}</textarea>
-                                @error('keterangan')
+                                @error('nilai_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

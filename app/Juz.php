@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Iqro extends Model
+class Juz extends Model
 {
-    protected $table = 'iqro';
+    protected $table = 'juz';
     protected $primaryKey = 'id';
-    protected $fillable = ['jilid'];
+    protected $fillable = ['juz'];
 }
