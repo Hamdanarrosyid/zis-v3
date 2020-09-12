@@ -60,3 +60,5 @@ Route::resource('warga','WargaController')->middleware('auth');
 Route::resource('jenis_kelamin','JenisKelaminController')->middleware('auth');
 Route::resource('golongan_darah','GolonganDarahController')->middleware('auth');
 Route::resource('jamaah','JamaahController')->middleware('auth');
+Route::resource('sekolah','SekolahController')->middleware('auth');
+Route::resource('santri','SantriController')->middleware('auth');

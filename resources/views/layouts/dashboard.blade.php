@@ -117,6 +117,20 @@
                             </ul>
                         </li>
                     @endauth
+                    @auth()
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false"> <i class="menu-icon fa fa-book"></i>TPA</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><a href="{{route('santri.index')}}">Santri</a></li>
+                                <li><a href="{{route('sekolah.index')}}">Sekolah</a></li>
+{{--                                <li><a href="{{route('warga.index')}}">Iqro</a></li>--}}
+                                <li><a href="{{route('jenis_kelamin.index')}}">Al-Quran</a></li>
+{{--                                <li><a href="{{route('golongan_darah.index')}}">Juz</a></li>--}}
+{{--                                <li><a href="{{route('jamaah.index')}}">Nilai</a></li>--}}
+                            </ul>
+                        </li>
+                    @endauth
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
