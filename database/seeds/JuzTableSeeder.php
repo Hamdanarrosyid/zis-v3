@@ -12,7 +12,7 @@ class JuzTableSeeder extends Seeder
     public function run()
     {
         for ($a = 1; $a <= 30; $a++) {
-            DB::table('juz')->insert(['jus' => $a]);
+            DB::table('juz')->insert(['juz' => $a]);
         }
     }
 }

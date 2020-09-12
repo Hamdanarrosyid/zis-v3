@@ -17,7 +17,6 @@ class CreateTableSekolah extends Migration
             $table->bigIncrements('id');
             $table->string('jenjang_sekolah');
             $table->string('nama_sekolah');
-            $table->string('kelas');
             $table->timestamps();
         });
     }

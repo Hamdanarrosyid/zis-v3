@@ -15,7 +15,7 @@ class CreateTableJuz extends Migration
     {
         Schema::create('juz', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jus');
+            $table->string('juz');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Nilai;
 use App\Santri;
 use App\Sekolah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SantriController extends Controller
 {
@@ -37,24 +38,32 @@ class SantriController extends Controller
 
         return response()->view('santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
     }
-    public function pencapaian()
-    {
-        dd('pp');
-        $juz = Juz::all();
-        $iqro = Iqro::all();
-
-        return response()->json(compact('juz','iqro'));
-    }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $validator = validator::make($request->all(), [
+            'nama_santri' => ['required', 'string','unique:santri'],
+            'jenis_kelamin_id' => ['required', 'integer'],
+            'tempat_lahir' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date'],
+            'sekolah_id' => ['required', 'integer'],
+            'tingkat_baca' => ['required', 'in:Iqro,Al-Quran'],
+            'juz_id' => ['integer'],
+            'iqro_id' => ['integer'],
+            'nilai_id' => ['required', 'integer'],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('santri.create')->withErrors($validator)->withInput();
+        } else {
+            Santri::create($request->all());
+            return redirect()->route('santri.index')->with('status', 'Berhasil menambahkan data');
+        }
     }
 
     /**

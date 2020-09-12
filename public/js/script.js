@@ -10,12 +10,14 @@ const select = async () => {
             const iqro = r.iqro
 
             if (option === 'Al-Quran') {
+                pencapaian.setAttribute('name','juz_id')
                 let html = juz.map(data => {
                         return `<option value="${data.id}">Juz ${data.juz}</option>`
                 })
                 pencapaian.innerHTML = html
             }
             if (option === 'Iqro') {
+                pencapaian.setAttribute('name','iqro_id')
                 let html = iqro.map(data => {
                     return `<option value="${data.id}">Jilid ${data.jilid}</option>`
                 })

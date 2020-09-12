@@ -100,8 +100,8 @@
                                         <label for="tingkat_baca">Tingkat Baca*</label>
                                         <select onchange="select()" id="tingkat_baca_selector" name="tingkat_baca" class="form-control  @error('tingkat_baca') is-invalid @enderror">
                                             <option value="{{null}}">Select..</option>
-                                            <option value="iqro">Iqro</option>
-                                            <option value="al-quran">Al-Quran</option>
+                                            <option value="Iqro">Iqro</option>
+                                            <option value="Al-Quran">Al-Quran</option>
                                             {{--                                    @foreach($rt as $data)--}}
                                             {{--                                        <option--}}
                                             {{--                                            @if(old('tingkat_baca') == $data->id)--}}
@@ -114,9 +114,14 @@
                                             {{--                                    @endforeach--}}
                                         </select>
                                     </div>
+                                    @error('tingkat_baca')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                     <div class="col-6">
-                                        <label for="tingkat_baca">Pencapaian Baca*</label>
-                                        <select id="pencapaian_baca" name="tingkat_baca" class="form-control  @error('tingkat_baca') is-invalid @enderror">
+                                        <label for="pencapaian_baca">Pencapaian Baca*</label>
+                                        <select id="pencapaian_baca" name="juz_id" class="form-control  @error('pencapaian_baca') is-invalid @enderror">
                                             <option class="bg-danger">pilih tingkat bacaan terlebih dahulu</option>
                                             {{--                                    @foreach($rt as $data)--}}
                                             {{--                                        <option--}}
@@ -130,12 +135,13 @@
                                             {{--                                    @endforeach--}}
                                         </select>
                                     </div>
-                                </div>
-                                @error('tingkat_baca')
-                                <span class="invalid-feedback" role="alert">
+                                    @error('pencapaian_baca')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
+
                             </div>
                             <div class="form-group">
                                 <label for="nilai_id">Nilai*</label>
