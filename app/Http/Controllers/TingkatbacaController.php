@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Pencapaian;
+use App\Tingkatbaca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class IqroController extends Controller
+class TingkatbacaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class IqroController extends Controller
      */
     public function index()
     {
-        $iqro = Pencapaian::where('tingkatbaca_id','=',1)->sortable(['nomor_pencapaian'=>'asc'])->paginate(10);
-        return view('tpa.iqro.index',compact('iqro'));
+        $tingkatbaca = Tingkatbaca::paginate(10);
+        return view('tpa.tingkatbaca.index',compact('tingkatbaca'));
     }
 
     /**
@@ -38,23 +38,23 @@ class IqroController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'jilid' => ['required', 'integer', 'unique:iqro'],
+            'tingkat_baca' => ['required', 'string', 'unique:tingkatbaca'],
         ]);
         if ($validator->fails()) {
-            return redirect()->route('iqro.index')->withErrors($validator)->with('error-create', true);
+            return redirect()->route('tingkatbaca.index')->withErrors($validator)->with('error-create', true);
         } else {
-            Iqro::create($request->all());
-            return redirect()->route('iqro.index')->with('status', 'Berhasil menambahkan data');
+            Tingkatbaca::create($request->all());
+            return redirect()->route('tingkatbaca.index')->with('status', 'Berhasil menambahkan data');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Iqro  $iqro
+     * @param  \App\Tingkatbaca  $tingkatbaca
      * @return \Illuminate\Http\Response
      */
-    public function show(Iqro $iqro)
+    public function show(Tingkatbaca $tingkatbaca)
     {
         //
     }
@@ -62,10 +62,10 @@ class IqroController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Iqro  $iqro
+     * @param  \App\Tingkatbaca  $tingkatbaca
      * @return \Illuminate\Http\Response
      */
-    public function edit(Iqro $iqro)
+    public function edit(Tingkatbaca $tingkatbaca)
     {
         //
     }
@@ -74,35 +74,35 @@ class IqroController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Iqro  $iqro
+     * @param  \App\Tingkatbaca  $tingkatbaca
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Iqro $iqro)
+    public function update(Request $request, Tingkatbaca $tingkatbaca)
     {
         $validator = validator::make($request->all(), [
-            'jilid' => ['required', 'integer'],
+            'tingkat_baca' => ['required', 'string'],
         ]);
         if ($validator->fails()) {
-            return redirect()->route('iqro.index')->withErrors($validator)->with(['error-update' => true, 'id' => $iqro->id]);
+            return redirect()->route('tingkatbaca.index')->withErrors($validator)->with(['error-update' => true, 'id' => $tingkatbaca->id]);
         } else {
-            $iqro::where('id', $iqro->id)
+            $tingkatbaca::where('id', $tingkatbaca->id)
                 ->update([
-                    'jilid' => $request->jilid,
+                    'tingkat_baca' => $request->tingkat_baca,
                 ]);
-            return redirect()->route('iqro.index')->with('status', 'Berhasil mengubah data');
+            return redirect()->route('tingkatbaca.index')->with('status', 'Berhasil mengubah data');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Iqro  $iqro
+     * @param  \App\Tingkatbaca  $tingkatbaca
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Iqro $iqro)
+    public function destroy(Tingkatbaca $tingkatbaca)
     {
-        Iqro::where('id', $iqro->id);
-        $iqro->delete();
-        return redirect()->route('iqro.index')->with('status', 'Berhasil menghapus data');
+        Tingkatbaca::where('id', $tingkatbaca->id);
+        $tingkatbaca->delete();
+        return redirect()->route('tingkatbaca.index')->with('status', 'Berhasil menghapus data');
     }
 }

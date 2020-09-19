@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="{{route('home')}}">Dashboard</a></li>
-                                <li class="active">Juz</li>
+                                <li class="active">Tingkat Baca</li>
                             </ol>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <strong class="card-title m-0">
                         <i class="fa fa-users"></i>
-                        Table Juz
+                        Table Tingkat Baca
                     </strong>
                     <a href="#" data-toggle="modal" data-target="#createmodal" class="badge badge-primary ">
                         <i class="fa fa-plus"></i>
@@ -43,15 +43,15 @@
                         {{--                        <thead>--}}
                         <tr>
                             <th class="serial">#</th>
-                            <th>Juz</th>
+                            <th>Tingkat baca</th>
                             <th>Aksi</th>
                         </tr>
                         {{--                        </thead>--}}
                         {{--                        <tbody>--}}
-                        @foreach($juz as $data)
+                        @foreach($tingkatbaca as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->nomor_pencapaian}}</td>
+                                <td> {{$data->tingkat_baca}}</td>
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
@@ -76,14 +76,14 @@
                     </button>
                 </div>
             @endif
-            {{ $juz->links() }}
+            {{ $tingkatbaca->links() }}
         </div>
     </div>
     {{--    create-modal--}}
     <div class="modal fade" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{route('juz.store')}}" method="post">
+            <form action="{{route('tingkatbaca.store')}}" method="post">
                 @csrf
                 @method('POST')
                 <div class="modal-content">
@@ -95,13 +95,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="juz" class="col-sm-4 col-form-label">Juz</label>
+                            <label for="tingkatbaca" class="col-sm-4 col-form-label">Tingkat baca</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nomor_pencapaian"
-                                       class="form-control @error('nomor_pencapaian') is-invalid @enderror"
-                                       id="juz"
-                                       placeholder="Juz">
-                                @error('nomor_pencapaian')
+                                <input type="text" name="tingkat_baca"
+                                       class="form-control @error('tingkat_baca') is-invalid @enderror"
+                                       id="tingkatbaca"
+                                       placeholder="Tingkat baca">
+                                @error('tingkat_baca')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -117,13 +117,13 @@
     </div>
 
     {{--Edit Modal--}}
-    @foreach($juz as $data)
+    @foreach($tingkatbaca as $data)
         <div class="modal fade" id="editmodal-{{$data->id}}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form action="{{route('juz.update',['juz'=>$data->id])}}" method="post">
+                    <form action="{{route('tingkatbaca.update',['tingkatbaca'=>$data->id])}}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="modal-header d-flex justify-content-between">
@@ -134,13 +134,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <label for="juz" class="col-sm-4 col-form-label">Juz</label>
+                                <label for="tingkatbaca" class="col-sm-4 col-form-label">Tingkat baca</label>
                                 <div class="col-sm-8">
-                                    <input value="{{$data->nomor_pencapaian}}" type="text" name="nomor_pencapaian"
-                                           class="form-control @error('nomor_pencapaian') is-invalid @enderror"
-                                           id="juz"
-                                           placeholder="Juz">
-                                    @error('nomor_pencapaian')
+                                    <input value="{{$data->tingkat_baca}}" type="text" name="tingkat_baca"
+                                           class="form-control @error('tingkat_baca') is-invalid @enderror"
+                                           id="tingkatbaca"
+                                           placeholder="Tingkat baca">
+                                    @error('tingkat_baca')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -156,7 +156,7 @@
         </div>
     @endforeach
 
-    @foreach($juz as $data)
+    @foreach($tingkatbaca as $data)
         <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -173,7 +173,7 @@
                             <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                         </div>
                     </div>
-                    <form id="deleteform" method="POST" action="{{route('juz.destroy',['juz'=>$data->id])}}">
+                    <form id="deleteform" method="POST" action="{{route('tingkatbaca.destroy',['tingkatbaca'=>$data->id])}}">
                         @csrf
                         @method('DELETE')
                         <div class="pb-4 d-flex justify-content-center">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableIqro extends Migration
+class CreateTableTingkatbaca extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTableIqro extends Migration
      */
     public function up()
     {
-//        Schema::create('iqro', function (Blueprint $table) {
-//            $table->bigIncrements('id');
-//            $table->bigInteger('jilid');
-//            $table->timestamps();
-//        });
+        Schema::create('tingkatbaca', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('tingkat_baca');
+            $table->string('nama_tingkatan');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,6 +28,6 @@ class CreateTableIqro extends Migration
      */
     public function down()
     {
-//        Schema::dropIfExists('iqro');
+        Schema::dropIfExists('tingkatbaca');
     }
 }

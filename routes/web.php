@@ -64,5 +64,8 @@ Route::resource('sekolah','SekolahController')->middleware('auth');
 Route::resource('santri','SantriController')->middleware('auth');
 Route::resource('iqro','IqroController')->middleware('auth');
 Route::resource('juz','JuzController')->middleware('auth');
+Route::resource('pencapaian','PencapaianController')->middleware('auth')->only('index','store','update','destroy');
 Route::resource('nilai','NilaiController')->middleware('auth');
+Route::resource('tingkatbaca','TingkatbacaController')->middleware('auth');
+Route::get('pencapaian/filter','PencapaianController@filter')->middleware('auth')->name('pencapaian.filter');
 //Route::get('santri/pencapaian','SantriController@pencapian')->middleware('auth')->name('santri.pencapaian');

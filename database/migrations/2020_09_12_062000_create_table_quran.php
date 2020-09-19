@@ -13,12 +13,12 @@ class CreateTableQuran extends Migration
      */
     public function up()
     {
-        Schema::create('quran', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('surah');
-//            $table->unsignedBigInteger('juz_id');
-            $table->timestamps();
-        });
+//        Schema::create('quran', function (Blueprint $table) {
+//            $table->bigIncrements('id');
+//            $table->string('surah');
+////            $table->unsignedBigInteger('juz_id');
+//            $table->timestamps();
+//        });
 
 //        Schema::table('quran',function (Blueprint $table){
 //            $table->foreign('juz_id')->references('id')->on('juz');
@@ -32,6 +32,6 @@ class CreateTableQuran extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quran');
+//        Schema::dropIfExists('quran');
     }
 }

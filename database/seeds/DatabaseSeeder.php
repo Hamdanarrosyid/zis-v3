@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([IqroTableSeeder::class,NilaiTableSeeder::class,JuzTableSeeder::class]);
+        $this->call([PencapainTableSeeder::class,NilaiTableSeeder::class]);
+        DB::table('tingkatbaca')->insert([
+            ['tingkat_baca' => 'Iqro'],
+            ['tingkat_baca' => 'Al-Quran'],
+        ]);
     }
 }

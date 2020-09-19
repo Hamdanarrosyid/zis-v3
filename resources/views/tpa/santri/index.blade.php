@@ -59,10 +59,10 @@
                                 <td> {{$data->nama_santri}}</td>
                                 <td> {{$data->jenisKelamin->jenis_kelamin}}</td>
                                 <td> {{$data->sekolah->nama_sekolah}}</td>
-                                <td> {{$data->tingkat_baca}}</td>
-                                @if($data->tingkat_baca == 'Al-Quran')
+                                <td> {{strtoupper($data->tingkatbaca->tingkat_baca)}}</td>
+                                @if(strtoupper($data->tingkatbaca->tingkat_baca) == 'AL-QURAN')
                                     <td>Juz {{$data->juz->juz}}</td>
-                                @elseif($data->tingkat_baca == 'Iqro')
+                                @elseif(strtoupper($data->tingkatbaca->tingkat_baca) == 'IQRO')
                                     <td>Jilid {{$data->iqro->jilid}}</td>
                                 @endif
                                 <td> {{$data->nilai->nilai}}</td>

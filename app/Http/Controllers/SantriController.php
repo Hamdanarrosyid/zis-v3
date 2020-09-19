@@ -8,6 +8,7 @@ use App\Juz;
 use App\Nilai;
 use App\Santri;
 use App\Sekolah;
+use App\Tingkatbaca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,27 +34,28 @@ class SantriController extends Controller
     public function create()
     {
         $jenisKelamin = JenisKelamin::all();
+        $tingkatbaca = Tingkatbaca::all();
         $sekolah = Sekolah::all();
         $nilai = Nilai::all()->sortBy('nilai');
 
-        return response()->view('tpa.santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
+        return response()->view('tpa.santri.create', compact('jenisKelamin', 'tingkatbaca', 'sekolah', 'nilai'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'nama_santri' => ['required', 'string','unique:santri'],
+            'nama_santri' => ['required', 'string', 'unique:santri'],
             'jenis_kelamin_id' => ['required', 'integer'],
             'tempat_lahir' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date'],
             'sekolah_id' => ['required', 'integer'],
-            'tingkat_baca' => ['required', 'in:Iqro,Al-Quran'],
+            'tingkat_baca_id' => ['required', 'integer'],
             'juz_id' => ['integer'],
             'iqro_id' => ['integer'],
             'nilai_id' => ['required', 'integer'],
@@ -69,7 +71,7 @@ class SantriController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Santri  $santri
+     * @param \App\Santri $santri
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -77,13 +79,13 @@ class SantriController extends Controller
         $juz = Juz::all();
         $iqro = Iqro::all();
 
-        return response()->json(compact('juz','iqro'));
+        return response()->json(compact('juz', 'iqro'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Santri  $santri
+     * @param \App\Santri $santri
      * @return \Illuminate\Http\Response
      */
     public function edit(Santri $santri)
@@ -94,8 +96,8 @@ class SantriController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Santri  $santri
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Santri $santri
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Santri $santri)
@@ -106,7 +108,7 @@ class SantriController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Santri  $santri
+     * @param \App\Santri $santri
      * @return \Illuminate\Http\Response
      */
     public function destroy(Santri $santri)

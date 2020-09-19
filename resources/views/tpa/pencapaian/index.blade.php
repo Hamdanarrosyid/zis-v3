@@ -15,7 +15,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="{{route('home')}}">Dashboard</a></li>
-                                <li class="active">Juz</li>
+                                <li class="active">Pencapaian</li>
                             </ol>
                         </div>
                     </div>
@@ -24,13 +24,19 @@
         </div>
     </div>
     <div class="content" style="margin-bottom: 200px">
+        <div class="d-flex justify-content-center mb-3">
+            @foreach($tingkatbaca as $data)
+{{--                <form action="" method="GET" class="mx-2">--}}
+                    <a href="{{route('pencapaian.filter',['id'=>$data->id])}}" class="btn btn-outline-dark">{{$data->tingkat_baca}}</a>
+{{--                </form>--}}
+            @endforeach
+        </div>
         <div class="animated fadeIn">
-
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <strong class="card-title m-0">
                         <i class="fa fa-users"></i>
-                        Table Juz
+                        Table Pencapaian
                     </strong>
                     <a href="#" data-toggle="modal" data-target="#createmodal" class="badge badge-primary ">
                         <i class="fa fa-plus"></i>
@@ -40,18 +46,19 @@
                 </div>
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
-                        {{--                        <thead>--}}
                         <tr>
                             <th class="serial">#</th>
-                            <th>Juz</th>
+                            {{--                            <th>Tingkat bacaan Pencapaian</th>--}}
+                            <th>Pencapaian</th>
                             <th>Aksi</th>
                         </tr>
-                        {{--                        </thead>--}}
-                        {{--                        <tbody>--}}
-                        @foreach($juz as $data)
+                        @foreach($pencapaian as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->nomor_pencapaian}}</td>
+                                <td>
+                                    {{$data->tingkatbaca->nama_tingkatan}} {{$data->nomor_pencapaian}}
+                                </td>
+                                {{--                                <td> {{$data->nama_pencapaian}}</td>--}}
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
@@ -62,7 +69,6 @@
                                     </a>
                                 </td>
                             </tr>
-                            {{--                        </tbody>--}}
 
                         @endforeach
                     </table>
@@ -76,14 +82,14 @@
                     </button>
                 </div>
             @endif
-            {{ $juz->links() }}
+            {{ $pencapaian->links() }}
         </div>
     </div>
     {{--    create-modal--}}
     <div class="modal fade" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{route('juz.store')}}" method="post">
+            <form action="{{route('pencapaian.store')}}" method="post">
                 @csrf
                 @method('POST')
                 <div class="modal-content">
@@ -95,17 +101,31 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="juz" class="col-sm-4 col-form-label">Juz</label>
+                            <label for="tingkatbaca_id" class="col-sm-4 col-form-label">Tingkat Pencapaian</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nomor_pencapaian"
-                                       class="form-control @error('nomor_pencapaian') is-invalid @enderror"
-                                       id="juz"
-                                       placeholder="Juz">
-                                @error('nomor_pencapaian')
+                                <select name="tingkatbaca_id" id="tingkatbaca"
+                                        class="form-control  @error('tingkatbaca_id') is-invalid @enderror">
+                                    <option value="">Select...</option>
+                                    @foreach($tingkatbaca as $data)
+                                        <option value="{{$data->id}}">{{$data->tingkat_baca}}</option>
+                                    @endforeach
+                                </select>
+                                @error('tingkatbaca_id')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
+                        </div>
+                        <div class="form-group row">
+                            <label for="nomor_pencapaian" class="col-sm-4 col-form-label">Pencapaian</label>
+                            <div class="col-sm-8">
+                                <input type="number" placeholder="Pencapaian" name="nomor_pencapaian"
+                                       class="form-control @error('nomor_pencapaian') is-invalid @enderror"
+                                       id="nomor_pencapaian">
+                                @error('nomor_pencapaian')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -117,13 +137,13 @@
     </div>
 
     {{--Edit Modal--}}
-    @foreach($juz as $data)
+    @foreach($pencapaian as $data)
         <div class="modal fade" id="editmodal-{{$data->id}}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form action="{{route('juz.update',['juz'=>$data->id])}}" method="post">
+                    <form action="{{route('pencapaian.update',['pencapaian'=>$data->id])}}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="modal-header d-flex justify-content-between">
@@ -134,12 +154,24 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <label for="juz" class="col-sm-4 col-form-label">Juz</label>
+                                <label for="tingkatbaca_id" class="col-sm-4 col-form-label">Tingkat Baca</label>
                                 <div class="col-sm-8">
-                                    <input value="{{$data->nomor_pencapaian}}" type="text" name="nomor_pencapaian"
+                                    <input value="{{$data->tingkatbaca_id}}" type="text" name="tingkatbaca_id"
+                                           class="form-control @error('tingkatbaca_id') is-invalid @enderror"
+                                           id="tingkaybaca_id"
+                                           placeholder="nama dasa wisma">
+                                    @error('tingkatbaca_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="pencapaian" class="col-sm-4 col-form-label">Pencapaian</label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="{{$data->nomor_pencapaian}}" name="nomor_pencapaian"
                                            class="form-control @error('nomor_pencapaian') is-invalid @enderror"
-                                           id="juz"
-                                           placeholder="Juz">
+                                           placeholder="Nama pencapaian"
+                                           id="nomor_pencapaian">
                                     @error('nomor_pencapaian')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -156,8 +188,9 @@
         </div>
     @endforeach
 
-    @foreach($juz as $data)
-        <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach($pencapaian as $data)
+        <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="d-flex justify-content-center">
@@ -173,7 +206,8 @@
                             <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                         </div>
                     </div>
-                    <form id="deleteform" method="POST" action="{{route('juz.destroy',['juz'=>$data->id])}}">
+                    <form id="deleteform" method="POST"
+                          action="{{route('pencapaian.destroy',['pencapaian'=>$data->id])}}">
                         @csrf
                         @method('DELETE')
                         <div class="pb-4 d-flex justify-content-center">

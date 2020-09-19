@@ -98,20 +98,18 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="tingkat_baca">Tingkat Baca*</label>
-                                        <select onchange="select()" id="tingkat_baca_selector" name="tingkat_baca" class="form-control  @error('tingkat_baca') is-invalid @enderror">
+                                        <select onchange="select()" id="tingkat_baca_selector" name="tingkat_baca_id" class="form-control  @error('tingkat_baca') is-invalid @enderror">
                                             <option value="{{null}}">Select..</option>
-                                            <option value="Iqro">Iqro</option>
-                                            <option value="Al-Quran">Al-Quran</option>
-                                            {{--                                    @foreach($rt as $data)--}}
-                                            {{--                                        <option--}}
-                                            {{--                                            @if(old('tingkat_baca') == $data->id)--}}
-                                            {{--                                            selected--}}
-                                            {{--                                            value="{{$data->id}}">{{$data->nomor_rt}}--}}
-                                            {{--                                            @else--}}
-                                            {{--                                                value="{{$data->id}}">{{$data->nomor_rt}}--}}
-                                            {{--                                            @endif--}}
-                                            {{--                                        </option>--}}
-                                            {{--                                    @endforeach--}}
+                                            @foreach($tingkatbaca as $data)
+                                                <option
+                                                    @if(old('tingkat_baca') == $data->id)
+                                                    selected
+                                                    value="{{$data->id}}">{{$data->tingkat_baca}}
+                                                    @else
+                                                        value="{{$data->id}}">{{$data->tingkat_baca}}
+                                                    @endif
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     @error('tingkat_baca')

@@ -20,16 +20,18 @@ class CreateTableSantri extends Migration
             $table->date('tanggal_lahir');
             $table->unsignedBigInteger('jenis_kelamin_id');
             $table->unsignedBigInteger('sekolah_id');
-            $table->enum('tingkat_baca',['Iqro','Al-Quran']);
-            $table->unsignedBigInteger('juz_id')->nullable();
-            $table->unsignedBigInteger('iqro_id')->nullable();
+            $table->unsignedBigInteger('tingkatbaca_id');
+            $table->unsignedBigInteger('pencapaianbaca_id')->nullable();
+//            $table->unsignedBigInteger('iqro_id')->nullable();
             $table->unsignedBigInteger('nilai_id');
             $table->timestamps();
         });
         Schema::table('santri',function (Blueprint $table){
             $table->foreign('jenis_kelamin_id')->references('id')->on('jenis_kelamin');
-//            $table->foreign('sekolah_id')->references('id')->on('sekolah');
+            $table->foreign('sekolah_id')->references('id')->on('sekolah');
             $table->foreign('nilai_id')->references('id')->on('nilai');
+            $table->foreign('tingkatbaca_id')->references('id')->on('tingkatbaca');
+            $table->foreign('pencapaianbaca_id')->references('id')->on('pencapaianbaca');
         });
     }
 

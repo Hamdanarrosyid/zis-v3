@@ -51,7 +51,7 @@
                         @foreach($iqro as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->jilid}}</td>
+                                <td> {{$data->tingkatbaca->nama_tingkatan}} {{$data->nomor_pencapaian}}</td>
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit

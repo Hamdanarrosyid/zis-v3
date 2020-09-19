@@ -13,11 +13,11 @@ class CreateTableJuz extends Migration
      */
     public function up()
     {
-        Schema::create('juz', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('juz');
-            $table->timestamps();
-        });
+//        Schema::create('juz', function (Blueprint $table) {
+//            $table->bigIncrements('id');
+//            $table->bigInteger('juz');
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateTableJuz extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('juz');
+//        Schema::dropIfExists('juz');
     }
 }

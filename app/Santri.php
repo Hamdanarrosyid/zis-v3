@@ -8,7 +8,7 @@ class Santri extends Model
 {
     protected $table = 'santri';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama_santri','tempat_lahir','tanggal_lahir','jenis_kelamin_id','sekolah_id','tingkat_baca','juz_id','iqro_id','nilai_id'];
+    protected $fillable = ['nama_santri','tempat_lahir','tanggal_lahir','jenis_kelamin_id','sekolah_id','tingkatbaca_id','juz_id','iqro_id','nilai_id'];
 
     public function jenisKelamin()
     {
@@ -25,6 +25,10 @@ class Santri extends Model
     public function iqro()
     {
         return $this->belongsTo(Iqro::class);
+    }
+    public function tingkatbaca()
+    {
+        return $this->belongsTo(Tingkatbaca::class);
     }
     public function nilai()
     {

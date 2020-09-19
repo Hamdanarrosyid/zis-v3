@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Juz;
+//use App\Pencapaian;
+use App\Pencapaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,7 @@ class JuzController extends Controller
      */
     public function index()
     {
-        $juz = Juz::sortable('juz')->paginate(10);
+        $juz = Pencapaian::where('tingkatbaca_id','=',2)->sortable('nomor_pencapaian')->paginate(10);
         return view('tpa.juz.index',compact('juz'));
     }
 
@@ -38,12 +39,12 @@ class JuzController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'juz' => ['required', 'string', 'unique:juz'],
+            'juz' => ['required', 'integer', 'unique:juz'],
         ]);
         if ($validator->fails()) {
             return redirect()->route('juz.index')->withErrors($validator)->with('error-create', true);
         } else {
-            Juz::create($request->all());
+            Pencapaian::create($request->all());
             return redirect()->route('juz.index')->with('status', 'Berhasil menambahkan data');
         }
     }
@@ -51,10 +52,10 @@ class JuzController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Juz  $juz
+     * @param  \App\Pencapaian  $juz
      * @return \Illuminate\Http\Response
      */
-    public function show(Juz $juz)
+    public function show(Pencapaian $juz)
     {
         //
     }
@@ -62,10 +63,10 @@ class JuzController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Juz  $juz
+     * @param  \App\Pencapaian  $juz
      * @return \Illuminate\Http\Response
      */
-    public function edit(Juz $juz)
+    public function edit(Pencapaian $juz)
     {
         //
     }
@@ -74,20 +75,21 @@ class JuzController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Juz  $juz
+     * @param  \App\Pencapaian  $juz
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Juz $juz)
+    public function update(Request $request, Pencapaian $juz)
     {
         $validator = validator::make($request->all(), [
-            'juz' => ['required', 'string'],
+            'nomor_pencapaian' => ['required', 'integer'],
         ]);
         if ($validator->fails()) {
             return redirect()->route('juz.index')->withErrors($validator)->with(['error-update' => true, 'id' => $juz->id]);
         } else {
             $juz::where('id', $juz->id)
                 ->update([
-                    'juz' => $request->juz,
+//                    'tingkatbaca_id' => 2,
+                    'nomor_pencapaian' => $request->nomor_pencapaian,
                 ]);
             return redirect()->route('juz.index')->with('status', 'Berhasil mengubah data');
         }
@@ -96,12 +98,12 @@ class JuzController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Juz  $juz
+     * @param  \App\Pencapaian  $juz
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Juz $juz)
+    public function destroy(Pencapaian $juz)
     {
-        Juz::where('id', $juz->id);
+        Pencapaian::where('id', $juz->id);
         $juz->delete();
         return redirect()->route('juz.index')->with('status', 'Berhasil menghapus data');
     }
