@@ -22,7 +22,7 @@ class SantriController extends Controller
     {
         $santri = Santri::paginate(10);
 
-        return response()->view('santri.index', compact('santri'));
+        return response()->view('tpa.santri.index', compact('santri'));
     }
 
     /**
@@ -36,7 +36,7 @@ class SantriController extends Controller
         $sekolah = Sekolah::all();
         $nilai = Nilai::all();
 
-        return response()->view('santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
+        return response()->view('tpa.santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
     }
 
     /**

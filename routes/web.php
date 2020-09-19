@@ -62,4 +62,7 @@ Route::resource('golongan_darah','GolonganDarahController')->middleware('auth');
 Route::resource('jamaah','JamaahController')->middleware('auth');
 Route::resource('sekolah','SekolahController')->middleware('auth');
 Route::resource('santri','SantriController')->middleware('auth');
+Route::resource('iqro','IqroController')->middleware('auth');
+Route::resource('juz','JuzController')->middleware('auth');
+Route::resource('nilai','NilaiController')->middleware('auth');
 //Route::get('santri/pencapaian','SantriController@pencapian')->middleware('auth')->name('santri.pencapaian');
