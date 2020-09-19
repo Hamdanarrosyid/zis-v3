@@ -48,11 +48,10 @@
                         </tr>
                         {{--                        </thead>--}}
                         {{--                        <tbody>--}}
-                        @foreach($sekolah as $data)
+                        @foreach($iqro as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
-                                <td> {{$data->jenjang_sekolah}}</td>
-                                <td> {{$data->nama_sekolah}}</td>
+                                <td> {{$data->jilid}}</td>
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
@@ -77,14 +76,14 @@
                     </button>
                 </div>
             @endif
-            {{ $sekolah->links() }}
+            {{ $iqro->links() }}
         </div>
     </div>
     {{--    create-modal--}}
     <div class="modal fade" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{route('sekolah.store')}}" method="post">
+            <form action="{{route('iqro.store')}}" method="post">
                 @csrf
                 @method('POST')
                 <div class="modal-content">
@@ -96,28 +95,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="jenjang_sekolah" class="col-sm-4 col-form-label">Jilid Iqro</label>
+                            <label for="jilid" class="col-sm-4 col-form-label">Jilid Iqro</label>
                             <div class="col-sm-8">
-                                <input type="text" name="jenjang_sekolah"
-                                       class="form-control @error('jenjang_sekolah') is-invalid @enderror"
-                                       id="jenjang_sekolah"
-                                       placeholder="Jilid sekolah">
-                                @error('jenjang_sekolah')
+                                <input type="text" name="jilid"
+                                       class="form-control @error('jilid') is-invalid @enderror"
+                                       id="jilid"
+                                       placeholder="Jilid">
+                                @error('jilid')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                        </div>
-                        <div class="form-group row">
-                            <label for="nama_sekolah" class="col-sm-4 col-form-label">Nama Iqro</label>
-                            <div class="col-sm-8">
-                                <input type="text" placeholder="Nama sekolah" name="nama_sekolah"
-                                       class="form-control @error('nama_sekolah') is-invalid @enderror"
-                                       id="nama_sekolah">
-                                @error('nama_sekolah')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -129,13 +117,13 @@
     </div>
 
     {{--Edit Modal--}}
-    @foreach($sekolah as $data)
+    @foreach($iqro as $data)
         <div class="modal fade" id="editmodal-{{$data->id}}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form action="{{route('sekolah.update',['sekolah'=>$data->id])}}" method="post">
+                    <form action="{{route('iqro.update',['iqro'=>$data->id])}}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="modal-header d-flex justify-content-between">
@@ -146,24 +134,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <label for="nama_dasa_wisma" class="col-sm-4 col-form-label">Jilid Iqro</label>
+                                <label for="jilid" class="col-sm-4 col-form-label">Jilid Iqro</label>
                                 <div class="col-sm-8">
-                                    <input value="{{$data->jenjang_sekolah}}" type="text" name="jenjang_sekolah"
-                                           class="form-control @error('jenjang_sekolah') is-invalid @enderror"
-                                           id="dasa_wisma"
-                                           placeholder="nama dasa wisma">
-                                    @error('jenjang_sekolah')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="jumlah_krt" class="col-sm-4 col-form-label">Nama Iqro</label>
-                                <div class="col-sm-8">
-                                    <input type="text" value="{{$data->nama_sekolah}}" name="nama_sekolah"
-                                           class="form-control @error('nama_sekolah') is-invalid @enderror" placeholder="Nama sekolah"
-                                           id="nama_sekolah">
-                                    @error('nama_sekolah')
+                                    <input value="{{$data->jilid}}" type="text" name="jilid"
+                                           class="form-control @error('jilid') is-invalid @enderror"
+                                           id="jilid"
+                                           placeholder="Jilid">
+                                    @error('jilid')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -179,7 +156,7 @@
         </div>
     @endforeach
 
-    @foreach($sekolah as $data)
+    @foreach($iqro as $data)
         <div class="modal fade" id="modal-delete-{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -196,7 +173,7 @@
                             <h4 class="text-gray-700">Data anda tidak bisa dikembalikan!</h4>
                         </div>
                     </div>
-                    <form id="deleteform" method="POST" action="{{route('sekolah.destroy',['sekolah'=>$data->id])}}">
+                    <form id="deleteform" method="POST" action="{{route('iqro.destroy',['iqro'=>$data->id])}}">
                         @csrf
                         @method('DELETE')
                         <div class="pb-4 d-flex justify-content-center">

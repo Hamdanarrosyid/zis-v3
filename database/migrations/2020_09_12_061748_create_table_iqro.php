@@ -15,7 +15,7 @@ class CreateTableIqro extends Migration
     {
         Schema::create('iqro', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jilid');
+            $table->bigInteger('jilid');
             $table->timestamps();
         });
     }

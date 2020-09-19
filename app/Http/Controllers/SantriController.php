@@ -34,7 +34,7 @@ class SantriController extends Controller
     {
         $jenisKelamin = JenisKelamin::all();
         $sekolah = Sekolah::all();
-        $nilai = Nilai::all();
+        $nilai = Nilai::all()->sortBy('nilai');
 
         return response()->view('tpa.santri.create', compact('jenisKelamin', 'sekolah', 'nilai'));
     }
