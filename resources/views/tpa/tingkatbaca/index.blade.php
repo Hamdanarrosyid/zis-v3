@@ -44,6 +44,7 @@
                         <tr>
                             <th class="serial">#</th>
                             <th>Tingkat baca</th>
+                            <th>Nama Tingkatan</th>
                             <th>Aksi</th>
                         </tr>
                         {{--                        </thead>--}}
@@ -52,6 +53,7 @@
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
                                 <td> {{$data->tingkat_baca}}</td>
+                                <td> {{$data->nama_tingkatan}}</td>
                                 <td>
                                     <a href="#" class="badge badge-complete " data-toggle="modal"
                                        data-target="#editmodal-{{ $data->id }}">Edit
@@ -105,7 +107,18 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama_tingkatan" class="col-sm-4 col-form-label">Nama TIngkatan</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="nama_tingkatan"
+                                       class="form-control @error('nama_tingkatan') is-invalid @enderror"
+                                       id="nama_tingkatan"
+                                       placeholder="Tingkat baca">
+                                @error('nama_tingkatan')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

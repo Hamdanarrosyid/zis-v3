@@ -60,11 +60,7 @@
                                 <td> {{$data->jenisKelamin->jenis_kelamin}}</td>
                                 <td> {{$data->sekolah->nama_sekolah}}</td>
                                 <td> {{strtoupper($data->tingkatbaca->tingkat_baca)}}</td>
-                                @if(strtoupper($data->tingkatbaca->tingkat_baca) == 'AL-QURAN')
-                                    <td>Juz {{$data->juz->juz}}</td>
-                                @elseif(strtoupper($data->tingkatbaca->tingkat_baca) == 'IQRO')
-                                    <td>Jilid {{$data->iqro->jilid}}</td>
-                                @endif
+                                <td> {{$data->pencapaian_id->nomor_pencapaian}}</td>
                                 <td> {{$data->nilai->nilai}}</td>
                                 <td>
                                     <a href="{{route('santri.show',['santri'=>$data->id])}}"

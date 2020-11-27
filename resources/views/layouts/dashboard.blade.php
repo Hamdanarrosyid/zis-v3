@@ -126,8 +126,8 @@
                                 <li><a href="{{route('sekolah.index')}}">Sekolah</a></li>
                                 <li><a href="{{route('pencapaian.index')}}">Pencapaian Baca</a></li>
                                 <li><a href="{{route('tingkatbaca.index')}}">Tingkat Baca</a></li>
-                                <li><a href="{{route('juz.index')}}">Juz</a></li>
-                                <li><a href="{{route('iqro.index')}}">Iqro</a></li>
+{{--                                <li><a href="{{route('juz.index')}}">Juz</a></li>--}}
+{{--                                <li><a href="{{route('iqro.index')}}">Iqro</a></li>--}}
                                 <li><a href="{{route('nilai.index')}}">Nilai</a></li>
                             </ul>
                         </li>

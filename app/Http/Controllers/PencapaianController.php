@@ -17,7 +17,8 @@ class PencapaianController extends Controller
     public function index()
     {
         $tingkatbaca = Tingkatbaca::all();
-        $pencapaian = Pencapaian::where('tingkatbaca_id','=',2)->paginate(10);
+        $pencapaian = Pencapaian::where('tingkatbaca_id','=',0)->paginate(10);
+
 
         return view('tpa.pencapaian.index', compact('pencapaian','tingkatbaca'));
     }
@@ -25,7 +26,7 @@ class PencapaianController extends Controller
     public function filter(Request $request)
     {
         $tingkatbaca = Tingkatbaca::all();
-        $pencapaian = Pencapaian::where('tingkatbaca_id','=',$request->id)->paginate(10);
+        $pencapaian = Pencapaian::where('tingkatbaca_id','=',$request->id)->paginate(10)->appends('id',$request->id);
         return response()->view('tpa.pencapaian.index', compact('pencapaian','tingkatbaca'));
     }
 
@@ -49,13 +50,13 @@ class PencapaianController extends Controller
     {
         $validator = validator::make($request->all(), [
             'tingkatbaca_id' => ['required', 'integer'],
-            'nomor_pencapaian' => ['required', 'integer', 'unique:pencapaianbaca'],
+            'nomor_pencapaian' => ['required', 'integer'],
         ]);
         if ($validator->fails()) {
-            return redirect()->route('pencapaian.index')->withErrors($validator)->with('error-create', true);
+            return redirect()->route('pencapaian.filter',['id'=>$request->tingkatbaca_id])->withErrors($validator)->with('error-create', true);
         } else {
             Pencapaian::create($request->all());
-            return redirect()->route('pencapaian.index')->with('status', 'Berhasil menambahkan data');
+            return redirect()->route('pencapaian.filter',['id'=>$request->tingkatbaca_id])->with('status', 'Berhasil menambahkan data');
         }
     }
 

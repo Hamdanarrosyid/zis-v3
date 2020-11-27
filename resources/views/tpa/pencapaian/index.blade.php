@@ -26,9 +26,10 @@
     <div class="content" style="margin-bottom: 200px">
         <div class="d-flex justify-content-center mb-3">
             @foreach($tingkatbaca as $data)
-{{--                <form action="" method="GET" class="mx-2">--}}
-                    <a href="{{route('pencapaian.filter',['id'=>$data->id])}}" class="btn btn-outline-dark">{{$data->tingkat_baca}}</a>
-{{--                </form>--}}
+                {{--                <form action="" method="GET" class="mx-2">--}}
+                <a href="{{route('pencapaian.filter',['id'=>$data->id])}}"
+                   class="btn btn-outline-dark mx-2 ">{{$data->tingkat_baca}}</a>
+                {{--                </form>--}}
             @endforeach
         </div>
         <div class="animated fadeIn">
@@ -44,6 +45,11 @@
                     </a>
 
                 </div>
+                    @if($pencapaian->count() == 0)
+                        <div class="d-flex justify-content-center">
+                                <p class="mt-3">Pastikan sudah memilih pencapaian yang ada</p>
+                        </div>
+                    @else
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
                         <tr>
@@ -52,6 +58,7 @@
                             <th>Pencapaian</th>
                             <th>Aksi</th>
                         </tr>
+
                         @foreach($pencapaian as $data)
                             <tr>
                                 <td class="serial">{{$loop->iteration}}</td>
@@ -73,6 +80,7 @@
                         @endforeach
                     </table>
                 </div> <!-- /.table-stats -->
+                    @endif
             </div>
             @if(session('status'))
                 <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">

@@ -119,7 +119,7 @@
                                     @enderror
                                     <div class="col-6">
                                         <label for="pencapaian_baca">Pencapaian Baca*</label>
-                                        <select id="pencapaian_baca" name="juz_id" class="form-control  @error('pencapaian_baca') is-invalid @enderror">
+                                        <select id="pencapaian_baca" name="pencapaianbaca_id" class="form-control  @error('pencapaian_baca') is-invalid @enderror">
                                             <option class="bg-danger">pilih tingkat bacaan terlebih dahulu</option>
                                             {{--                                    @foreach($rt as $data)--}}
                                             {{--                                        <option--}}

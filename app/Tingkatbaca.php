@@ -8,5 +8,5 @@ class Tingkatbaca extends Model
 {
     protected $table = 'tingkatbaca';
     protected $primaryKey = 'id';
-    protected $fillable = ['tingkat_baca'];
+    protected $fillable = ['tingkat_baca','nama_tingkatan'];
 }

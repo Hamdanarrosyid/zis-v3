@@ -39,6 +39,7 @@ class TingkatbacaController extends Controller
     {
         $validator = validator::make($request->all(), [
             'tingkat_baca' => ['required', 'string', 'unique:tingkatbaca'],
+            'nama_tingkatan' => ['required', 'string'],
         ]);
         if ($validator->fails()) {
             return redirect()->route('tingkatbaca.index')->withErrors($validator)->with('error-create', true);

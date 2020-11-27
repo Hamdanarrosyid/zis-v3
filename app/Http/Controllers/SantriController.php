@@ -6,6 +6,7 @@ use App\Iqro;
 use App\JenisKelamin;
 use App\Juz;
 use App\Nilai;
+use App\Pencapaian;
 use App\Santri;
 use App\Sekolah;
 use App\Tingkatbaca;
@@ -72,14 +73,22 @@ class SantriController extends Controller
      * Display the specified resource.
      *
      * @param \App\Santri $santri
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show()
     {
-        $juz = Juz::all();
-        $iqro = Iqro::all();
 
-        return response()->json(compact('juz', 'iqro'));
+//        $pencapaian = Pencapaian::all()->mapToGroups(function ($data){
+//            $id = $data->id;
+//            $tingkatbaca_id = $data->tingkatbaca_id;
+//            $nomor_pencapaian = $data->nomor_pencapaian;
+////            $p = Tingkatbaca::where('id','=',$data->tingkatbaca_id)->get();
+////            dd($p->nama_tingkatan);
+//            return ['pencapaian'=>compact('id','tingkatbaca_id','nomor_pencapaian')];
+//        })->toArray();
+        $pencapaian = Pencapaian::all();
+
+        return response()->json(compact('pencapaian'));
     }
 
     /**
